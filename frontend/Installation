@@ -1,0 +1,10 @@
+installation Guide
+
+```bash
+1. npm init
+2. npm i
+3. npm i react-router-dom
+4. npm install tailwind-scrollbar-hide
+5. npm install react-hook-form
+
+```
