@@ -12,7 +12,7 @@ import ProtectedRoute from "./components/ProtectedRoute";
 import UploadNote from "./components/Notes/UploadNote";
 import Contact from "./components/Contact";
 import About from "./components/About";
-import Courses from "./components/Courses/Courses";
+// import Courses from "./components/Courses/Courses";
 import Home from "./components/Home";
 
 const App = () => {
@@ -64,7 +64,7 @@ const App = () => {
               />
               <Route path="/contact" element={<Contact />} />
               <Route path="/about" element={<About />} />
-              <Route path="/courses" element={<Courses />} />
+              {/* <Route path="/courses" element={<Courses />} /> */}
             </Routes>
           </main>
         </AuthProvider>
