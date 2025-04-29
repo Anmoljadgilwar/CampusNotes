@@ -80,9 +80,7 @@ const Home = () => {
 
           <div className="bg-gray-800 p-6 rounded-lg text-center">
             <FiBookOpen className="text-purple-400 text-4xl mx-auto mb-4" />
-            <h3 className="text-white text-xl font-semibold mb-2">
-              All Courses
-            </h3>
+            <h3 className="text-white text-xl font-semibold mb-2">Courses</h3>
             <p className="text-gray-400">
               Notes available for all major courses
             </p>
@@ -132,7 +130,7 @@ const Home = () => {
           </h2>
           <p className="text-gray-400 mb-8">
             {isAuthenticated
-              ? "Access thousands of notes and study materials for free."
+              ? "Access notes and study materials for free."
               : "Sign up to access all our study materials and resources."}
           </p>
           {!isAuthenticated && (
