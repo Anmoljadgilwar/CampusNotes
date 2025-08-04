@@ -6,7 +6,7 @@ const Home = () => {
   const isAuthenticated = localStorage.getItem("token");
 
   return (
-    <div className="min-h-screen bg-gray-900">
+    <div className="min-h-screen ">
       {/* Hero Section */}
       <div className="bg-gradient-to-b from-purple-900 to-gray-900">
         <div className="container mx-auto px-6 py-20">
@@ -148,7 +148,7 @@ const Home = () => {
       <footer className="bg-gray-900 border-t border-gray-800">
         <div className="container mx-auto px-6 py-8">
           <div className="text-center text-gray-400">
-            <p>© 2024 CampusNotes. All rights reserved.</p>
+            <p>© 2025 CampusNotes. All rights reserved.</p>
             <div className="mt-4">
               <Link to="/about" className="hover:text-purple-400 mx-2">
                 About

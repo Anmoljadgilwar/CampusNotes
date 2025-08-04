@@ -9,6 +9,10 @@
   scrollbar-width: none;
 }
 
+.theme {
+  background: linear-gradient(90deg, #ffe7f5, #e2c9fd, #c6b7fa);
+}
+
 /* :root {
   font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
   line-height: 1.5;
