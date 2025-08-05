@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { jwtDecode } from "jwt-decode";
 import NoteCard from "./NoteCard";
 import Categories from "../Categories";
+import { toast } from "react-toastify";
 
 const Notes = () => {
   const [notes, setNotes] = useState([]);

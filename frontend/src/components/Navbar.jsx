@@ -13,6 +13,8 @@ const Navbar = () => {
   const navigate = useNavigate();
   const location = useLocation();
 
+  const toggleMenu = () => setIsOpen(!isOpen);
+
   useEffect(() => {
     const token = localStorage.getItem("token");
     if (token) {
@@ -133,6 +135,19 @@ const Navbar = () => {
                 </Button>
               </div>
             )}
+          </div>
+          {/* Mobile menu button */}
+          <div className="md:hidden">
+            <button
+              onClick={toggleMenu}
+              className="p-2 rounded-lg hover:bg-gray-800 transition duration-300"
+            >
+              {isOpen ? (
+                <FaTimes className="h-6 w-6" />
+              ) : (
+                <FaBars className="h-6 w-6" />
+              )}
+            </button>
           </div>
         </div>
       </div>

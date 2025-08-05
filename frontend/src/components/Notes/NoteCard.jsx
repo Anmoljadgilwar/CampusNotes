@@ -57,17 +57,12 @@ const NoteCard = ({ note }) => {
     <div className="bg-gray-800 rounded-lg shadow-lg overflow-hidden flex flex-col">
       <div className="h-40 bg-gray-700 relative">
         <img
-          src={
-            imageError
-              ? "http://localhost:4000/uploads/thumbnails/default.png"
-              : `http://localhost:4000${
-                  note.thumbnail || "/uploads/thumbnails/default.png"
-                }`
-          }
+          src={`http://localhost:4000${note.thumbnail || '/uploads/thumbnails/CNotes-Logo.png'}`}
           alt={note.title}
           className="w-full h-full object-contain"
           onError={() => setImageError(true)}
         />
+
         <div className="absolute top-2 right-2">
           <span className="text-xs bg-purple-500 text-white px-2 py-1 rounded-md">
             {note.category}
