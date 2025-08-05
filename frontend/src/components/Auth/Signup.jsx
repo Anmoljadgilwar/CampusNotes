@@ -2,6 +2,8 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 const Signup = () => {
+  const backendUrl = import.meta.env.VITE_BACKEND_URL;
+
   const [formData, setFormData] = useState({
     username: "",
     email: "",
@@ -27,7 +29,7 @@ const Signup = () => {
     }
 
     try {
-      const response = await fetch("http://localhost:4000/api/auth/register", {
+      const response = await fetch(backendUrl + "/api/auth/register", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

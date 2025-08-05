@@ -5,6 +5,8 @@ const NoteCard = ({ note }) => {
   const [error, setError] = useState("");
   const [imageError, setImageError] = useState(false);
 
+  const backendUrl = import.meta.env.VITE_BACKEND_URL;
+
   const handleDownload = async () => {
     try {
       setDownloading(true);
@@ -12,7 +14,7 @@ const NoteCard = ({ note }) => {
       const token = localStorage.getItem("token");
 
       const response = await fetch(
-        `http://localhost:4000/api/notes/download/${note._id}`,
+        `${backendUrl}/api/notes/download/${note._id}`,
         {
           headers: {
             Authorization: `Bearer ${token}`,
@@ -57,7 +59,9 @@ const NoteCard = ({ note }) => {
     <div className="bg-gray-800 rounded-lg shadow-lg overflow-hidden flex flex-col">
       <div className="h-40 bg-gray-700 relative">
         <img
-          src={`http://localhost:4000${note.thumbnail || '/uploads/thumbnails/CNotes-Logo.png'}`}
+          src={`${backendUrl}${
+            note.thumbnail || "/uploads/thumbnails/CNotes-Logo.png"
+          }`}
           alt={note.title}
           className="w-full h-full object-contain"
           onError={() => setImageError(true)}

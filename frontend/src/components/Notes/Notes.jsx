@@ -6,6 +6,8 @@ import Categories from "../Categories";
 import { toast } from "react-toastify";
 
 const Notes = () => {
+  const backendUrl = import.meta.env.VITE_BACKEND_URL;
+
   const [notes, setNotes] = useState([]);
   const [filteredNotes, setFilteredNotes] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -32,7 +34,7 @@ const Notes = () => {
 
   const fetchNotes = async () => {
     try {
-      const response = await fetch("http://localhost:4000/api/notes");
+      const response = await fetch(backendUrl + "/api/notes");
       const data = await response.json();
       setNotes(data);
       setFilteredNotes(data); // Initialize with all notes

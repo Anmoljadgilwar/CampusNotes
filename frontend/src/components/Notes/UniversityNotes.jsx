@@ -82,8 +82,9 @@ const UniversityNotes = () => {
   }, [searchQuery, notes]);
 
   const fetchNotes = async () => {
+    const backendUrl = import.meta.env.VITE_BACKEND_URL;
     try {
-      let url = "http://localhost:4000/api/notes?";
+      let url = backendUrl + "/api/notes?";
       if (filters.course) url += `course=${filters.course}&`;
       if (filters.semester) url += `semester=${filters.semester}&`;
       if (filters.subject) url += `subject=${filters.subject}&`;

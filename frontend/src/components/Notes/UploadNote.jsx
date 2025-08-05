@@ -115,6 +115,8 @@ const UploadNote = () => {
   };
 
   const handleSubmit = async (e) => {
+    const backendUrl = import.meta.env.VITE_BACKEND_URL;
+
     e.preventDefault();
     setLoading(true);
     setError("");
@@ -170,7 +172,7 @@ const UploadNote = () => {
         formDataToSend.append("thumbnail", thumbnail);
       }
 
-      const response = await fetch("http://localhost:4000/api/notes/upload", {
+      const response = await fetch(backendUrl + "/api/notes/upload", {
         method: "POST",
         headers: {
           Authorization: `Bearer ${token}`,
