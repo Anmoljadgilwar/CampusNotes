@@ -18,4 +18,4 @@ CampusNotes is a community-driven platform designed to make education accessible
 
 ### Get Started
 
-Visit [CampusNotes](#) to explore and contribute. Together, we can make learning accessible for everyone.
+Visit [CampusNotes](https://campusnotes-in.netlify.app/) to explore and contribute. Together, we can make learning accessible for everyone.
