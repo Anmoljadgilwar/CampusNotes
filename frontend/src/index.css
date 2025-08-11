@@ -10,7 +10,7 @@
 }
 
 .theme {
-  background: linear-gradient(90deg, #ffe7f5, #e2c9fd, #c6b7fa);
+  background-color: linear-gradient(90deg, #ffe7f5, #e2c9fd, #c6b7fa);
 }
 
 /* :root {

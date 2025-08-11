@@ -57,7 +57,7 @@ const Notes = () => {
 
   // Handle category change
   const handleCategoryChange = (category) => {
-    console.log("Category changed to:", category);
+    //  console.log("Category changed to:", category);
     setActiveCategory(category);
   };
 
