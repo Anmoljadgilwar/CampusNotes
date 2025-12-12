@@ -1,10 +1,10 @@
-✅ server.js
+✅ **_server.js_**
 Responsible for **starting** the server.
 Handles listening to the port and any startup-level errors.
 
 //
 
-✅ app.js
+✅**_app.js_**
 Responsible for setting up the Express app.
 Define routes, middleware, and other configurations here.
 Example structure:

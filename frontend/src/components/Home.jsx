@@ -8,13 +8,13 @@ const Home = () => {
   return (
     <div className="min-h-screen ">
       {/* Hero Section */}
-      <div className="bg-gradient-to-b from-purple-900 to-gray-900">
+      <div className="bg-gradient-to-b from-purple-600 to-purple-800 dark:from-purple-900 dark:to-gray-900 dark:text-white">
         <div className="container mx-auto px-6 py-20">
           <div className="text-center">
             <h1 className="text-4xl md:text-6xl font-bold text-white mb-4">
               Welcome to CampusNotes
             </h1>
-            <p className="text-xl text-gray-300 mb-8">
+            <p className="text-xl text-gray-100 dark:text-gray-300 mb-8">
               Your one-stop destination for university study materials
             </p>
 
@@ -48,40 +48,42 @@ const Home = () => {
       {/* Features Section */}
       <div className="container mx-auto px-6 py-16">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-          <div className="bg-gray-800 p-6 rounded-lg text-center">
+          <div className="bg-white dark:bg-gray-800 p-6 rounded-lg text-center shadow-lg">
             <FiBook className="text-purple-400 text-4xl mx-auto mb-4" />
-            <h3 className="text-white text-xl font-semibold mb-2">
+            <h3 className="text-gray-900 dark:text-white text-xl font-semibold mb-2">
               Quality Notes
             </h3>
-            <p className="text-gray-400">
+            <p className="text-gray-600 dark:text-gray-400">
               Access high-quality study materials curated by top educators
             </p>
           </div>
 
-          <div className="bg-gray-800 p-6 rounded-lg text-center">
+          <div className="bg-white dark:bg-gray-800 p-6 rounded-lg text-center shadow-lg">
             <FiDownload className="text-purple-400 text-4xl mx-auto mb-4" />
-            <h3 className="text-white text-xl font-semibold mb-2">
+            <h3 className="text-gray-900 dark:text-white text-xl font-semibold mb-2">
               Easy Download
             </h3>
-            <p className="text-gray-400">
+            <p className="text-gray-600 dark:text-gray-400">
               Download notes instantly with just one click
             </p>
           </div>
 
-          <div className="bg-gray-800 p-6 rounded-lg text-center">
+          <div className="bg-white dark:bg-gray-800 p-6 rounded-lg text-center shadow-lg">
             <FiUsers className="text-purple-400 text-4xl mx-auto mb-4" />
-            <h3 className="text-white text-xl font-semibold mb-2">
+            <h3 className="text-gray-900 dark:text-white text-xl font-semibold mb-2">
               Free Access
             </h3>
-            <p className="text-gray-400">
+            <p className="text-gray-600 dark:text-gray-400">
               All study materials are completely free
             </p>
           </div>
 
-          <div className="bg-gray-800 p-6 rounded-lg text-center">
+          <div className="bg-white dark:bg-gray-800 p-6 rounded-lg text-center shadow-lg">
             <FiBookOpen className="text-purple-400 text-4xl mx-auto mb-4" />
-            <h3 className="text-white text-xl font-semibold mb-2">Courses</h3>
-            <p className="text-gray-400">
+            <h3 className="text-gray-900 dark:text-white text-xl font-semibold mb-2">
+              Courses
+            </h3>
+            <p className="text-gray-600 dark:text-gray-400">
               Notes available for all major courses
             </p>
           </div>
@@ -90,45 +92,57 @@ const Home = () => {
 
       {/* Popular Courses Section */}
       <div className="container mx-auto px-6 py-16">
-        <h2 className="text-3xl font-bold text-white mb-8 text-center">
+        <h2 className="text-3xl font-bold text-gray-900 dark:text-white mb-8 text-center">
           Popular Courses
         </h2>
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
           <Link
             to="/university-notes?course=BCA"
-            className="bg-gray-800 p-6 rounded-lg hover:bg-gray-700 transition duration-300"
+            className="bg-white dark:bg-gray-800 p-6 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-700 transition duration-300 shadow-lg"
           >
-            <h3 className="text-xl font-semibold text-white mb-2">BCA</h3>
-            <p className="text-gray-400">Bachelor of Computer Applications</p>
+            <h3 className="text-xl font-semibold text-gray-900 dark:text-white mb-2">
+              BCA
+            </h3>
+            <p className="text-gray-600 dark:text-gray-400">
+              Bachelor of Computer Applications
+            </p>
           </Link>
 
           <Link
             to="/university-notes?course=MCA"
-            className="bg-gray-800 p-6 rounded-lg hover:bg-gray-700 transition duration-300"
+            className="bg-white dark:bg-gray-800 p-6 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-700 transition duration-300 shadow-lg"
           >
-            <h3 className="text-xl font-semibold text-white mb-2">MCA</h3>
-            <p className="text-gray-400">Master of Computer Applications</p>
+            <h3 className="text-xl font-semibold text-gray-900 dark:text-white mb-2">
+              MCA
+            </h3>
+            <p className="text-gray-600 dark:text-gray-400">
+              Master of Computer Applications
+            </p>
           </Link>
 
           <Link
             to="/university-notes?course=BTech"
-            className="bg-gray-800 p-6 rounded-lg hover:bg-gray-700 transition duration-300"
+            className="bg-white dark:bg-gray-800 p-6 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-700 transition duration-300 shadow-lg"
           >
-            <h3 className="text-xl font-semibold text-white mb-2">BTech</h3>
-            <p className="text-gray-400">Bachelor of Technology</p>
+            <h3 className="text-xl font-semibold text-gray-900 dark:text-white mb-2">
+              BTech
+            </h3>
+            <p className="text-gray-600 dark:text-gray-400">
+              Bachelor of Technology
+            </p>
           </Link>
         </div>
       </div>
 
       {/* CTA Section - Show different message based on auth status */}
-      <div className="bg-gray-800">
+      <div className="bg-purple-700 dark:bg-gray-800">
         <div className="container mx-auto px-6 py-16 text-center">
           <h2 className="text-3xl font-bold text-white mb-4">
             {isAuthenticated
               ? "Ready to Start Learning?"
               : "Join CampusNotes Today"}
           </h2>
-          <p className="text-gray-400 mb-8">
+          <p className="text-purple-100 dark:text-gray-400 mb-8">
             {isAuthenticated
               ? "Access notes and study materials for free."
               : "Sign up to access all our study materials and resources."}
@@ -145,18 +159,27 @@ const Home = () => {
       </div>
 
       {/* Footer */}
-      <footer className="bg-gray-900 border-t border-gray-800">
+      <footer className="bg-purple-800 dark:bg-gray-900 border-t border-purple-600 dark:border-gray-800">
         <div className="container mx-auto px-6 py-8">
-          <div className="text-center text-gray-400">
+          <div className="text-center text-purple-100 dark:text-gray-400">
             <p>© 2025 CampusNotes. All rights reserved.</p>
             <div className="mt-4">
-              <Link to="/about" className="hover:text-purple-400 mx-2">
+              <Link
+                to="/about"
+                className="hover:text-purple-300 dark:hover:text-purple-400 mx-2"
+              >
                 About
               </Link>
-              <Link to="/contact" className="hover:text-purple-400 mx-2">
+              <Link
+                to="/contact"
+                className="hover:text-purple-300 dark:hover:text-purple-400 mx-2"
+              >
                 Contact
               </Link>
-              <Link to="/privacy" className="hover:text-purple-400 mx-2">
+              <Link
+                to="/privacy"
+                className="hover:text-purple-300 dark:hover:text-purple-400 mx-2"
+              >
                 Privacy Policy
               </Link>
             </div>

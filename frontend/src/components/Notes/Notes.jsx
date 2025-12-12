@@ -62,10 +62,14 @@ const Notes = () => {
   };
 
   if (loading)
-    return <div className="text-center text-white p-8">Loading...</div>;
+    return (
+      <div className="text-center text-gray-900 dark:text-white p-8">
+        Loading...
+      </div>
+    );
 
   return (
-    <div className="min-h-screen bg-gray-900">
+    <div className="min-h-screen bg-white dark:bg-gray-900">
       <Categories
         activeCategory={activeCategory}
         onCategoryChange={handleCategoryChange}
@@ -73,7 +77,9 @@ const Notes = () => {
 
       <div className="p-8">
         <div className="flex justify-between items-center mb-6">
-          <h2 className="text-3xl font-bold text-purple-400">Notes</h2>
+          <h2 className="text-3xl font-bold text-gray-900 dark:text-purple-400">
+            Notes
+          </h2>
           {isAdmin && (
             <button
               onClick={() => navigate("/upload")}
@@ -91,7 +97,7 @@ const Notes = () => {
             ))}
           </div>
         ) : (
-          <div className="text-center text-gray-400 py-12">
+          <div className="text-center text-gray-600 dark:text-gray-400 py-12">
             <p className="text-xl">No notes found in this category.</p>
             <p className="mt-2">
               Try selecting a different category or check back later.

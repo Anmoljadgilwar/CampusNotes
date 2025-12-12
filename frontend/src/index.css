@@ -1,4 +1,5 @@
 @import "tailwindcss";
+@custom-variant dark (&:where(.dark, .dark *));
 
 .scrollbar-hide::-webkit-scrollbar {
   display: none;
@@ -7,10 +8,6 @@
 .scrollbar-hide {
   -ms-overflow-style: none;
   scrollbar-width: none;
-}
-
-.theme {
-  background-color: linear-gradient(90deg, #ffe7f5, #e2c9fd, #c6b7fa);
 }
 
 /* :root {

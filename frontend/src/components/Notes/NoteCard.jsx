@@ -56,8 +56,8 @@ const NoteCard = ({ note }) => {
   };
 
   return (
-    <div className="bg-gray-800 rounded-lg shadow-lg overflow-hidden flex flex-col">
-      <div className="h-40 bg-gray-700 relative">
+    <div className="bg-white dark:bg-gray-800 rounded-lg shadow-lg overflow-hidden flex flex-col border border-gray-200 dark:border-gray-700">
+      <div className="h-40 bg-gray-100 dark:bg-gray-700 relative">
         <img
           src={`${backendUrl}${
             note.thumbnail || "/uploads/thumbnails/CNotes-Logo.png"
@@ -75,17 +75,19 @@ const NoteCard = ({ note }) => {
       </div>
 
       <div className="p-4 flex-grow">
-        <h3 className="text-lg font-bold text-white mb-3">{note.title}</h3>
+        <h3 className="text-lg font-bold text-gray-900 dark:text-white mb-3">
+          {note.title}
+        </h3>
 
         <div className="space-y-1 mb-3">
           {note.course && (
-            <p className="text-gray-400 text-sm">
+            <p className="text-gray-600 dark:text-gray-400 text-sm">
               <span className="font-medium">Course:</span> {note.course}
             </p>
           )}
 
           {note.semester && (
-            <p className="text-gray-400 text-sm">
+            <p className="text-gray-600 dark:text-gray-400 text-sm">
               <span className="font-medium">Semester:</span> {note.semester}
             </p>
           )}

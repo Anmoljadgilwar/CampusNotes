@@ -149,10 +149,10 @@ const UniversityNotes = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gray-900 p-8">
+    <div className="min-h-screen bg-white dark:bg-gray-900 p-8">
       <div className="max-w-7xl mx-auto">
         <div className="flex justify-between items-center mb-8">
-          <h1 className="text-3xl font-bold text-purple-400">
+          <h1 className="text-3xl font-bold text-gray-900 dark:text-purple-400">
             University Notes
           </h1>
           {localStorage.getItem("isAdmin") === "true" && (
@@ -176,21 +176,23 @@ const UniversityNotes = () => {
               type="text"
               placeholder="Search notes by title, course, subject..."
               onChange={(e) => handleSearch(e.target.value)}
-              className="w-full pl-12 pr-4 py-3 rounded-lg bg-gray-800 text-white border border-gray-700 focus:border-purple-500 focus:outline-none focus:ring-2 focus:ring-purple-500/50"
+              className="w-full pl-12 pr-4 py-3 rounded-lg bg-white dark:bg-gray-800 text-gray-900 dark:text-white border border-gray-300 dark:border-gray-700 focus:border-purple-500 focus:outline-none focus:ring-2 focus:ring-purple-500/50"
             />
           </div>
         </div>
 
         {/* Filters */}
-        <div className="bg-gray-800 p-6 rounded-lg mb-8">
+        <div className="bg-white dark:bg-gray-800 p-6 rounded-lg mb-8 shadow-lg border border-gray-200 dark:border-gray-700">
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
             {/* Course Filter */}
             <div>
-              <label className="block text-white mb-2">Course</label>
+              <label className="block text-gray-900 dark:text-white mb-2">
+                Course
+              </label>
               <select
                 value={filters.course}
                 onChange={(e) => handleFilterChange("course", e.target.value)}
-                className="w-full p-2 rounded bg-gray-700 text-white border border-gray-600"
+                className="w-full p-2 rounded bg-white dark:bg-gray-700 text-gray-900 dark:text-white border border-gray-300 dark:border-gray-600"
               >
                 <option value="">All Courses</option>
                 {Object.keys(courseData).map((course) => (
@@ -203,11 +205,13 @@ const UniversityNotes = () => {
 
             {/* Semester Filter */}
             <div>
-              <label className="block text-white mb-2">Semester</label>
+              <label className="block text-gray-900 dark:text-white mb-2">
+                Semester
+              </label>
               <select
                 value={filters.semester}
                 onChange={(e) => handleFilterChange("semester", e.target.value)}
-                className="w-full p-2 rounded bg-gray-700 text-white border border-gray-600"
+                className="w-full p-2 rounded bg-white dark:bg-gray-700 text-gray-900 dark:text-white border border-gray-300 dark:border-gray-600"
                 disabled={!filters.course}
               >
                 <option value="">All Semesters</option>
@@ -224,11 +228,13 @@ const UniversityNotes = () => {
 
             {/* Subject Filter */}
             <div>
-              <label className="block text-white mb-2">Subject</label>
+              <label className="block text-gray-900 dark:text-white mb-2">
+                Subject
+              </label>
               <select
                 value={filters.subject}
                 onChange={(e) => handleFilterChange("subject", e.target.value)}
-                className="w-full p-2 rounded bg-gray-700 text-white border border-gray-600"
+                className="w-full p-2 rounded bg-white dark:bg-gray-700 text-gray-900 dark:text-white border border-gray-300 dark:border-gray-600"
                 disabled={!filters.course || !filters.semester}
               >
                 <option value="">All Subjects</option>
@@ -248,7 +254,7 @@ const UniversityNotes = () => {
 
         {/* Search Results Summary */}
         {searchQuery && (
-          <div className="mb-6 text-gray-400">
+          <div className="mb-6 text-gray-600 dark:text-gray-400">
             Found {filteredNotes.length} results for "{searchQuery}"
           </div>
         )}
@@ -294,7 +300,9 @@ const UniversityNotes = () => {
 
         {/* Notes Grid */}
         {loading ? (
-          <div className="text-center text-white">Loading...</div>
+          <div className="text-center text-gray-900 dark:text-white">
+            Loading...
+          </div>
         ) : filteredNotes.length > 0 ? (
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
             {filteredNotes.map((note) => (
@@ -302,7 +310,7 @@ const UniversityNotes = () => {
             ))}
           </div>
         ) : (
-          <div className="text-center text-gray-400 py-12">
+          <div className="text-center text-gray-600 dark:text-gray-400 py-12">
             <p className="text-xl">No notes found.</p>
             <p className="mt-2">
               {searchQuery

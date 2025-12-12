@@ -6,7 +6,12 @@ export default defineConfig(({ mode }) => {
   const env = loadEnv(mode, process.cwd());
 
   return {
-    plugins: [tailwindcss(), react()],
+    plugins: [
+      tailwindcss({
+        // Tailwind v4 with Vite plugin should automatically use tailwind.config.js
+      }),
+      react(),
+    ],
     server: {
       port: 5173,
       proxy: {

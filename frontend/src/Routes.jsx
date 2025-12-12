@@ -1,16 +1,20 @@
 import React from "react";
 import { Routes, Route } from "react-router-dom";
-import Hero from "./components/Hero";
+import Home from "./components/Home";
 import Notes from "./components/Notes/Notes";
 import UploadNote from "./components/Notes/UploadNote";
 import Login from "./components/Auth/Login";
 import Signup from "./components/Auth/Signup";
+import About from "./components/About";
+import Contact from "./components/Contact";
 import ProtectedRoute from "./components/ProtectedRoute";
 
 const AppRoutes = () => {
   return (
     <Routes>
-      <Route path="/" element={<Hero />} />
+      <Route path="/" element={<Home />} />
+      <Route path="/about" element={<About />} />
+      <Route path="/contact" element={<Contact />} />
       <Route path="/login" element={<Login />} />
       <Route path="/signup" element={<Signup />} />
       <Route

@@ -19,7 +19,7 @@ const Contact = () => {
 
     try {
       const response = await fetch(
-        `import.meta.env.VITE_BACKEND_URL/api/contact`,
+        `${import.meta.env.VITE_BACKEND_URL}/api/contact`,
         {
           method: "POST",
           headers: {
@@ -51,9 +51,9 @@ const Contact = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gray-900 p-8">
+    <div className="min-h-screen bg-white dark:bg-gray-900 text-gray-900 dark:text-white p-8">
       <div className="max-w-2xl mx-auto">
-        <h2 className="text-3xl font-bold text-purple-400 mb-8 text-center">
+        <h2 className="text-3xl font-bold text-purple-600 dark:text-purple-400 mb-8 text-center">
           Contact Us
         </h2>
 
@@ -69,11 +69,14 @@ const Contact = () => {
           </div>
         )}
 
-        <div className="bg-gray-800 p-8 rounded-lg shadow-lg">
+        <div className="bg-gray-100 dark:bg-gray-800 p-8 rounded-lg shadow-lg">
           <form onSubmit={handleSubmit}>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
               <div>
-                <label className="block text-white mb-2" htmlFor="name">
+                <label
+                  className="block text-gray-900 dark:text-white mb-2"
+                  htmlFor="name"
+                >
                   Name
                 </label>
                 <input
@@ -82,13 +85,16 @@ const Contact = () => {
                   name="name"
                   value={formData.name}
                   onChange={handleChange}
-                  className="w-full p-3 rounded bg-gray-700 text-white border border-gray-600 focus:border-purple-400 focus:outline-none"
+                  className="w-full p-3 rounded bg-gray-200 dark:bg-gray-700 text-gray-900 dark:text-white border border-gray-400 dark:border-gray-600 focus:border-purple-400 focus:outline-none"
                   required
                 />
               </div>
 
               <div>
-                <label className="block text-white mb-2" htmlFor="email">
+                <label
+                  className="block text-gray-900 dark:text-white mb-2"
+                  htmlFor="email"
+                >
                   Email
                 </label>
                 <input
@@ -97,14 +103,17 @@ const Contact = () => {
                   name="email"
                   value={formData.email}
                   onChange={handleChange}
-                  className="w-full p-3 rounded bg-gray-700 text-white border border-gray-600 focus:border-purple-400 focus:outline-none"
+                  className="w-full p-3 rounded bg-gray-200 dark:bg-gray-700 text-gray-900 dark:text-white border border-gray-400 dark:border-gray-600 focus:border-purple-400 focus:outline-none"
                   required
                 />
               </div>
             </div>
 
             <div className="mb-6">
-              <label className="block text-white mb-2" htmlFor="subject">
+              <label
+                className="block text-gray-900 dark:text-white mb-2"
+                htmlFor="subject"
+              >
                 Subject
               </label>
               <input
@@ -113,13 +122,16 @@ const Contact = () => {
                 name="subject"
                 value={formData.subject}
                 onChange={handleChange}
-                className="w-full p-3 rounded bg-gray-700 text-white border border-gray-600 focus:border-purple-400 focus:outline-none"
+                className="w-full p-3 rounded bg-gray-200 dark:bg-gray-700 text-gray-900 dark:text-white border border-gray-400 dark:border-gray-600 focus:border-purple-400 focus:outline-none"
                 required
               />
             </div>
 
             <div className="mb-6">
-              <label className="block text-white mb-2" htmlFor="message">
+              <label
+                className="block text-gray-900 dark:text-white mb-2"
+                htmlFor="message"
+              >
                 Message
               </label>
               <textarea
@@ -128,7 +140,7 @@ const Contact = () => {
                 value={formData.message}
                 onChange={handleChange}
                 rows="6"
-                className="w-full p-3 rounded bg-gray-700 text-white border border-gray-600 focus:border-purple-400 focus:outline-none resize-none"
+                className="w-full p-3 rounded bg-gray-200 dark:bg-gray-700 text-gray-900 dark:text-white border border-gray-400 dark:border-gray-600 focus:border-purple-400 focus:outline-none resize-none"
                 required
               ></textarea>
             </div>
@@ -145,16 +157,22 @@ const Contact = () => {
 
         {/* Contact Information */}
         <div className="mt-12 grid grid-cols-1 md:grid-cols-3 gap-8 text-center">
-          <div className="bg-gray-800 p-6 rounded-lg">
+          <div className="bg-gray-100 dark:bg-gray-800 p-6 rounded-lg">
             <div className="text-purple-400 text-2xl mb-3">📍</div>
-            <h3 className="text-white font-bold mb-2">Address</h3>
-            <p className="text-gray-400">Yavatmal, India</p>
+            <h3 className="text-gray-900 dark:text-white font-bold mb-2">
+              Address
+            </h3>
+            <p className="text-gray-700 dark:text-gray-400">Yavatmal, India</p>
           </div>
 
-          <div className="bg-gray-800 p-6 rounded-lg w-70">
+          <div className="bg-gray-100 dark:bg-gray-800 p-6 rounded-lg w-70">
             <div className="text-purple-400 text-2xl mb-3">📧</div>
-            <h3 className="text-white font-bold mb-2">Email</h3>
-            <p className="text-gray-400">developer.anmol108@gmail.com</p>
+            <h3 className="text-gray-900 dark:text-white font-bold mb-2">
+              Email
+            </h3>
+            <p className="text-gray-700 dark:text-gray-400">
+              developer.anmol108@gmail.com
+            </p>
           </div>
         </div>
       </div>
