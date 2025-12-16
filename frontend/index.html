@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!-- <!DOCTYPE html>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
@@ -8,7 +8,7 @@
 
     <title>Campus Notes</title>
     <!-- Initialize theme immediately to prevent flash -->
-    <!-- <script>
+<!-- <script>
       (function () {
         const savedTheme = localStorage.getItem("theme");
         const prefersDark = window.matchMedia(
@@ -22,9 +22,37 @@
         }
       })();
     </script> -->
-  </head>
+<!-- </head>
   <body>
     <div id="root" class="theme"></div>
+    <script type="module" src="/src/main.jsx"></script>
+  </body>
+</html> -->
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/png" href="/CNotes-Logo.png" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Campus Notes</title>
+
+    <!-- Prevent dark/light flash -->
+    <script>
+      (function () {
+        const savedTheme = localStorage.getItem("theme");
+        const prefersDark = window.matchMedia(
+          "(prefers-color-scheme: dark)"
+        ).matches;
+
+        if (savedTheme === "dark" || (!savedTheme && prefersDark)) {
+          document.documentElement.classList.add("dark");
+        }
+      })();
+    </script>
+  </head>
+  <body>
+    <div id="root"></div>
     <script type="module" src="/src/main.jsx"></script>
   </body>
 </html>
