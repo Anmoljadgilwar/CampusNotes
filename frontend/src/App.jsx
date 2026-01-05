@@ -31,7 +31,7 @@ import React, { useLayoutEffect } from "react";
 import { BrowserRouter } from "react-router-dom";
 import AppRoutes from "./Routes";
 import Navbar from "./components/Navbar";
-import { AuthProvider } from "./context/AuthContext";
+
 import { useSelector } from "react-redux";
 
 const App = () => {
@@ -49,14 +49,12 @@ const App = () => {
 
   return (
     <BrowserRouter>
-      <AuthProvider>
-        <div className="min-h-screen bg-white dark:bg-gray-900 transition-colors duration-200">
-          <Navbar />
-          <main>
-            <AppRoutes />
-          </main>
-        </div>
-      </AuthProvider>
+      <div className="min-h-screen bg-white dark:bg-gray-900 transition-colors duration-200">
+        <Navbar />
+        <main>
+          <AppRoutes />
+        </main>
+      </div>
     </BrowserRouter>
   );
 };
