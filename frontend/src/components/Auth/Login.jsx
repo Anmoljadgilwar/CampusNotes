@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
-import { useAuth } from "../../context/AuthContext";
+import { useDispatch } from "react-redux";
+import { login } from "../../features/users/userSlice";
 
 const Login = () => {
   const backendUrl = import.meta.env.VITE_BACKEND_URL;
@@ -11,10 +12,11 @@ const Login = () => {
   });
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
+
+  const dispatch = useDispatch(); // 🔹 Redux
   const navigate = useNavigate();
   const location = useLocation();
-  const from = location.state?.from || "/notes"; // Default redirect to notes page
-  const { login } = useAuth();
+  const from = location.state?.from || "/notes";
 
   const handleChange = (e) => {
     setFormData({
@@ -40,8 +42,8 @@ const Login = () => {
       const data = await response.json();
 
       if (response.ok) {
-        login(data.token);
-        navigate(from, { replace: true }); // Redirect to the page they tried to access
+        dispatch(login(data.token)); // 🔥 Redux replaces useAuth().login
+        navigate(from, { replace: true });
       } else {
         setError(data.message || "Login failed");
       }
@@ -98,9 +100,10 @@ const Login = () => {
 
           <button
             type="submit"
-            className="w-full bg-purple-500 text-white py-2 rounded hover:bg-purple-600 transition duration-200"
+            disabled={loading}
+            className="w-full bg-purple-500 text-white py-2 rounded hover:bg-purple-600 transition duration-200 disabled:opacity-50"
           >
-            Login
+            {loading ? "Logging in..." : "Login"}
           </button>
         </form>
 
