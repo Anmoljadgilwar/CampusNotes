@@ -8,7 +8,7 @@ const Home = () => {
   return (
     <div className="min-h-screen ">
       {/* Hero Section */}
-      <div className="bg-gradient-to-b from-purple-600 to-purple-800 dark:from-purple-900 dark:to-gray-900 dark:text-white">
+      <div className="bg-gradient-to-b from-purple-400 to-purple-500 dark:from-purple-900 dark:to-gray-900 dark:text-white">
         <div className="container mx-auto px-6 py-20">
           <div className="text-center">
             <h1 className="text-4xl md:text-6xl font-bold text-white mb-4">
@@ -29,7 +29,7 @@ const Home = () => {
               <div className="space-x-4">
                 <Link
                   to="/login"
-                  className="bg-purple-500 hover:bg-purple-600 text-white px-8 py-3 rounded-lg text-lg font-semibold transition duration-300"
+                  className="bg-purple-600 hover:bg-purple-700 border-2 border-purple-600 text-white px-8 py-3 rounded-lg text-lg font-semibold transition duration-300"
                 >
                   Login
                 </Link>

@@ -32,22 +32,22 @@ const Navbar = () => {
   };
 
   const isActive = (path) => {
-    return location.pathname === path ? "text-purple-400" : "text-gray-300";
+    return location.pathname === path ? "text-purple-400" : "";
   };
 
   return (
-    <nav className="bg-blue-300 dark:bg-gray-900 text-white sticky top-0 z-50 shadow-lg">
+    <nav className="bg-purple-100 text-purple-700 dark:bg-gray-900 dark:text-white sticky top-0 z-50 shadow-lg">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center h-16">
           {/* Logo */}
           <Link to="/" className="flex items-center space-x-2">
-            <span className="text-2xl font-bold text-purple-400 hover:text-purple-300 transition duration-300">
+            <span className="text-2xl font-bold dark:text-purple-600 hover:text-purple-500 transition duration-300">
               CampusNotes
             </span>
           </Link>
 
           {/* Desktop Navigation */}
-          <div className="hidden md:flex items-center space-x-8">
+          <div className="hidden md:flex items-center space-x-8 font-medium">
             <Link
               to="/"
               className={`hover:text-purple-400 transition duration-300 ${isActive(
