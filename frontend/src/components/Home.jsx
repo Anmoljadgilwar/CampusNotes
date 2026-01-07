@@ -21,7 +21,7 @@ const Home = () => {
             {isAuthenticated ? (
               <Link
                 to="/university-notes"
-                className="bg-purple-500 hover:bg-purple-600 text-white px-8 py-3 rounded-lg text-lg font-semibold transition duration-300"
+                className="bg-purple-600 hover:bg-purple-500 text-white px-8 py-3 rounded-lg text-lg font-semibold transition duration-300"
               >
                 Browse Notes
               </Link>

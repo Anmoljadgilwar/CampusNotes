@@ -53,30 +53,39 @@ const Signup = () => {
       setError("Something went wrong");
     }
   };
-
   return (
-    <div className="min-h-screen bg-gray-900 flex items-center justify-center">
-      <div className="bg-gray-800 p-8 rounded-lg shadow-lg w-96">
-        <h2 className="text-3xl font-bold text-purple-400 mb-6 text-center">
+    <div className="min-h-screen bg-gray-100 dark:bg-gray-900 flex items-center justify-center">
+      <div className="bg-white dark:bg-gray-800 p-8 rounded-lg shadow-lg w-96">
+        <h2 className="text-3xl font-bold text-purple-600 dark:text-purple-400 mb-6 text-center">
           Sign Up
         </h2>
 
         {error && (
-          <div className="bg-red-500 text-white p-3 rounded mb-4 text-center">
+          <div className="bg-red-100 dark:bg-red-500 text-red-700 dark:text-white p-3 rounded mb-4 text-center">
             {error}
           </div>
         )}
 
         <form onSubmit={handleSubmit}>
           <div className="mb-4">
-            <label className="block text-white mb-2" htmlFor="username">
+            <label
+              className="block text-gray-700 dark:text-white mb-2"
+              htmlFor="username"
+            >
               Username
             </label>
             <input
               type="text"
               id="username"
               name="username"
-              className="w-full p-2 rounded bg-gray-700 text-white border border-gray-600 focus:border-purple-400 focus:outline-none"
+              className="
+              w-full p-2 rounded
+              bg-gray-100 dark:bg-gray-700
+              text-gray-900 dark:text-white
+              border border-gray-300 dark:border-gray-600
+              focus:border-purple-500 dark:focus:border-purple-400
+              focus:outline-none
+            "
               value={formData.username}
               onChange={handleChange}
               required
@@ -84,14 +93,24 @@ const Signup = () => {
           </div>
 
           <div className="mb-4">
-            <label className="block text-white mb-2" htmlFor="email">
+            <label
+              className="block text-gray-700 dark:text-white mb-2"
+              htmlFor="email"
+            >
               Email
             </label>
             <input
               type="email"
               id="email"
               name="email"
-              className="w-full p-2 rounded bg-gray-700 text-white border border-gray-600 focus:border-purple-400 focus:outline-none"
+              className="
+              w-full p-2 rounded
+              bg-gray-100 dark:bg-gray-700
+              text-gray-900 dark:text-white
+              border border-gray-300 dark:border-gray-600
+              focus:border-purple-500 dark:focus:border-purple-400
+              focus:outline-none
+            "
               value={formData.email}
               onChange={handleChange}
               required
@@ -99,14 +118,24 @@ const Signup = () => {
           </div>
 
           <div className="mb-4">
-            <label className="block text-white mb-2" htmlFor="password">
+            <label
+              className="block text-gray-700 dark:text-white mb-2"
+              htmlFor="password"
+            >
               Password
             </label>
             <input
               type="password"
               id="password"
               name="password"
-              className="w-full p-2 rounded bg-gray-700 text-white border border-gray-600 focus:border-purple-400 focus:outline-none"
+              className="
+              w-full p-2 rounded
+              bg-gray-100 dark:bg-gray-700
+              text-gray-900 dark:text-white
+              border border-gray-300 dark:border-gray-600
+              focus:border-purple-500 dark:focus:border-purple-400
+              focus:outline-none
+            "
               value={formData.password}
               onChange={handleChange}
               required
@@ -114,14 +143,24 @@ const Signup = () => {
           </div>
 
           <div className="mb-6">
-            <label className="block text-white mb-2" htmlFor="confirmPassword">
+            <label
+              className="block text-gray-700 dark:text-white mb-2"
+              htmlFor="confirmPassword"
+            >
               Confirm Password
             </label>
             <input
               type="password"
               id="confirmPassword"
               name="confirmPassword"
-              className="w-full p-2 rounded bg-gray-700 text-white border border-gray-600 focus:border-purple-400 focus:outline-none"
+              className="
+              w-full p-2 rounded
+              bg-gray-100 dark:bg-gray-700
+              text-gray-900 dark:text-white
+              border border-gray-300 dark:border-gray-600
+              focus:border-purple-500 dark:focus:border-purple-400
+              focus:outline-none
+            "
               value={formData.confirmPassword}
               onChange={handleChange}
               required
@@ -130,17 +169,22 @@ const Signup = () => {
 
           <button
             type="submit"
-            className="w-full bg-purple-500 text-white py-2 rounded hover:bg-purple-600 transition duration-200"
+            className="
+            w-full bg-purple-600 dark:bg-purple-500
+            text-white py-2 rounded
+            hover:bg-purple-700 dark:hover:bg-purple-600
+            transition duration-200
+          "
           >
             Sign Up
           </button>
         </form>
 
-        <div className="mt-4 text-center text-gray-400">
+        <div className="mt-4 text-center text-gray-600 dark:text-gray-400">
           Already have an account?{" "}
           <button
             onClick={() => navigate("/login")}
-            className="text-purple-400 hover:text-purple-300"
+            className="text-purple-600 dark:text-purple-400 hover:underline"
           >
             Login
           </button>
@@ -151,3 +195,101 @@ const Signup = () => {
 };
 
 export default Signup;
+
+//   return (
+//     <div className="min-h-screen bg-gray-900 flex items-center justify-center">
+//       <div className="bg-gray-800 p-8 rounded-lg shadow-lg w-96">
+//         <h2 className="text-3xl font-bold text-purple-400 mb-6 text-center">
+//           Sign Up
+//         </h2>
+
+//         {error && (
+//           <div className="bg-red-500 text-white p-3 rounded mb-4 text-center">
+//             {error}
+//           </div>
+//         )}
+
+//         <form onSubmit={handleSubmit}>
+//           <div className="mb-4">
+//             <label className="block text-white mb-2" htmlFor="username">
+//               Username
+//             </label>
+//             <input
+//               type="text"
+//               id="username"
+//               name="username"
+//               className="w-full p-2 rounded bg-gray-700 text-white border border-gray-600 focus:border-purple-400 focus:outline-none"
+//               value={formData.username}
+//               onChange={handleChange}
+//               required
+//             />
+//           </div>
+
+//           <div className="mb-4">
+//             <label className="block text-white mb-2" htmlFor="email">
+//               Email
+//             </label>
+//             <input
+//               type="email"
+//               id="email"
+//               name="email"
+//               className="w-full p-2 rounded bg-gray-700 text-white border border-gray-600 focus:border-purple-400 focus:outline-none"
+//               value={formData.email}
+//               onChange={handleChange}
+//               required
+//             />
+//           </div>
+
+//           <div className="mb-4">
+//             <label className="block text-white mb-2" htmlFor="password">
+//               Password
+//             </label>
+//             <input
+//               type="password"
+//               id="password"
+//               name="password"
+//               className="w-full p-2 rounded bg-gray-700 text-white border border-gray-600 focus:border-purple-400 focus:outline-none"
+//               value={formData.password}
+//               onChange={handleChange}
+//               required
+//             />
+//           </div>
+
+//           <div className="mb-6">
+//             <label className="block text-white mb-2" htmlFor="confirmPassword">
+//               Confirm Password
+//             </label>
+//             <input
+//               type="password"
+//               id="confirmPassword"
+//               name="confirmPassword"
+//               className="w-full p-2 rounded bg-gray-700 text-white border border-gray-600 focus:border-purple-400 focus:outline-none"
+//               value={formData.confirmPassword}
+//               onChange={handleChange}
+//               required
+//             />
+//           </div>
+
+//           <button
+//             type="submit"
+//             className="w-full bg-purple-500 text-white py-2 rounded hover:bg-purple-600 transition duration-200"
+//           >
+//             Sign Up
+//           </button>
+//         </form>
+
+//         <div className="mt-4 text-center text-gray-400">
+//           Already have an account?{" "}
+//           <button
+//             onClick={() => navigate("/login")}
+//             className="text-purple-400 hover:text-purple-300"
+//           >
+//             Login
+//           </button>
+//         </div>
+//       </div>
+//     </div>
+//   );
+// };
+
+// export default Signup;

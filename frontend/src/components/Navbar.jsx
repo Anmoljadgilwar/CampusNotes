@@ -36,12 +36,12 @@ const Navbar = () => {
   };
 
   return (
-    <nav className="bg-purple-100 text-purple-700 dark:bg-gray-900 dark:text-white sticky top-0 z-50 shadow-lg">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex justify-between items-center h-16">
+    <nav className="bg-purple-100  dark:bg-gray-900 text-purple-700 dark:text-white sticky top-0 z-50 shadow-lg">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 ">
+        <div className="flex justify-between items-center h-16 ">
           {/* Logo */}
           <Link to="/" className="flex items-center space-x-2">
-            <span className="text-2xl font-bold dark:text-purple-600 hover:text-purple-500 transition duration-300">
+            <span className="text-2xl font-bold  dark:text-purple-500 hover:text-purple-600 transition duration-300">
               CampusNotes
             </span>
           </Link>
@@ -113,7 +113,7 @@ const Navbar = () => {
                 )}
                 <span className="text-gray-300">{username}</span>
                 <Button
-                  className="bg-gray-900  border-1 border-purple-800 hover:bg-red-600 transition duration-300"
+                  className="text-gray-800 bg-gray-900  border-1 border-purple-800 hover:bg-red-600 transition duration-300"
                   onClick={handleLogout}
                 >
                   Logout
@@ -154,7 +154,7 @@ const Navbar = () => {
 
       {/* Mobile menu */}
       {isOpen && (
-        <div className="md:hidden bg-blue-600 dark:bg-gray-800 shadow-xl">
+        <div className="md:hidden bg-purple-200 dark:bg-gray-800 shadow-xl">
           <div className="px-2 pt-2 pb-3 space-y-1">
             <Link
               to="/"
@@ -221,7 +221,7 @@ const Navbar = () => {
                     handleLogout();
                     toggleMenu();
                   }}
-                  className="w-full text-left px-3 py-2 rounded-md bg-red-500 hover:bg-red-600 text-white transition duration-300"
+                  className="w-full text-left px-3 py-2 rounded-md dark:bg-gray-700  bg-purple-300 hover:bg-red-600 text-black dark:text-white transition duration-300"
                 >
                   Logout
                 </button>
