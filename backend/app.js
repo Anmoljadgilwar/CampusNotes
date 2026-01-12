@@ -27,6 +27,8 @@ const cors = require("cors");
 const path = require("path");
 
 const noteRoutes = require("./routes/noteRoutes"); // ✅ Add your note routes
+const authRoutes = require("./routes/authRoutes");
+const userRoutes = require("./routes/users");
 
 const app = express();
 
@@ -44,6 +46,8 @@ mongoose
 
 // Routes
 app.use("/api/notes", noteRoutes); // ✅ Mount your note upload/fetch API
+app.use("/api/auth", authRoutes);
+app.use("/api/users", userRoutes);
 
 // Test Route
 app.get("/", (req, res) => {

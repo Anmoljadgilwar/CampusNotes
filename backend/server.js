@@ -6,6 +6,7 @@ const authRoutes = require("./routes/authRoutes");
 const noteRoutes = require("./routes/noteRoutes");
 const path = require("path");
 const contactRoutes = require("./routes/contactRoutes");
+const userRoutes = require("./routes/users");
 
 const app = express();
 
@@ -21,6 +22,7 @@ app.use("/uploads", express.static(path.join(__dirname, "uploads"))); // Serve u
 app.use("/api/auth", authRoutes);
 app.use("/api/notes", noteRoutes);
 app.use("/api/contact", contactRoutes);
+app.use("/api/users", userRoutes);
 
 // Error handling middleware
 app.use((err, req, res, next) => {

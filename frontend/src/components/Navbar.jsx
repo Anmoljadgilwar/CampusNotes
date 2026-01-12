@@ -10,6 +10,7 @@ const Navbar = () => {
 
   const [isAdmin, setIsAdmin] = useState(false);
   const [username, setUsername] = useState("");
+  const [userId, setUserId] = useState("");
   const navigate = useNavigate();
   const location = useLocation();
 
@@ -18,9 +19,14 @@ const Navbar = () => {
   useEffect(() => {
     const token = localStorage.getItem("token");
     if (token) {
-      const decoded = jwtDecode(token);
-      setIsAdmin(decoded.isAdmin);
-      setUsername(decoded.username);
+      try {
+        const decoded = jwtDecode(token);
+        setIsAdmin(decoded.isAdmin);
+        setUsername(decoded.username || "");
+        setUserId(decoded.id || "");
+      } catch (error) {
+        console.error("Error decoding token:", error);
+      }
     }
   }, [location]);
 
@@ -59,24 +65,14 @@ const Navbar = () => {
 
             {/* Only show Notes links if authenticated */}
             {localStorage.getItem("token") && (
-              <>
-                <Link
-                  to="/notes"
-                  className={`hover:text-purple-400 transition duration-300 ${isActive(
-                    "/notes"
-                  )}`}
-                >
-                  Notes
-                </Link>
-                <Link
-                  to="/university-notes"
-                  className={`hover:text-purple-400 transition duration-300 ${isActive(
-                    "/university-notes"
-                  )}`}
-                >
-                  University Notes
-                </Link>
-              </>
+              <Link
+                to="/notes"
+                className={`hover:text-purple-400 transition duration-300 ${isActive(
+                  "/notes"
+                )}`}
+              >
+                Notes
+              </Link>
             )}
 
             <Link
@@ -103,15 +99,23 @@ const Navbar = () => {
 
             {localStorage.getItem("token") ? (
               <div className="flex items-center space-x-4">
-                {isAdmin && (
+                <Link
+                  to="/upload"
+                  className="text-sm bg-purple-500 hover:bg-purple-600 px-4 py-2 rounded-lg transition duration-300"
+                >
+                  Upload Note
+                </Link>
+                {userId && (
                   <Link
-                    to="/upload"
-                    className="text-sm bg-purple-500 hover:bg-purple-600 px-4 py-2 rounded-lg transition duration-300"
+                    to={`/profile/${userId}`}
+                    className="text-gray-300 hover:text-purple-400 transition duration-300"
                   >
-                    Upload Note
+                    {username}
                   </Link>
                 )}
-                <span className="text-gray-300">{username}</span>
+                {!userId && (
+                  <span className="text-gray-300">{username}</span>
+                )}
                 <Button
                   className="text-gray-800 bg-gray-900  border-1 border-purple-800 hover:bg-red-600 transition duration-300"
                   onClick={handleLogout}
@@ -166,22 +170,13 @@ const Navbar = () => {
 
             {/* Only show Notes links if authenticated */}
             {localStorage.getItem("token") && (
-              <>
-                <Link
-                  to="/notes"
-                  className="block px-3 py-2 rounded-md hover:bg-gray-700 hover:text-purple-400 transition duration-300"
-                  onClick={toggleMenu}
-                >
-                  Notes
-                </Link>
-                <Link
-                  to="/university-notes"
-                  className="block px-3 py-2 rounded-md hover:bg-gray-700 hover:text-purple-400 transition duration-300"
-                  onClick={toggleMenu}
-                >
-                  University Notes
-                </Link>
-              </>
+              <Link
+                to="/notes"
+                className="block px-3 py-2 rounded-md hover:bg-gray-700 hover:text-purple-400 transition duration-300"
+                onClick={toggleMenu}
+              >
+                Notes
+              </Link>
             )}
 
             <Link
@@ -206,16 +201,24 @@ const Navbar = () => {
 
             {localStorage.getItem("token") ? (
               <>
-                {isAdmin && (
+                <Link
+                  to="/upload"
+                  className="block px-3 py-2 rounded-md bg-purple-500 hover:bg-purple-600 text-white transition duration-300"
+                  onClick={toggleMenu}
+                >
+                  Upload Note
+                </Link>
+                {userId ? (
                   <Link
-                    to="/upload"
-                    className="block px-3 py-2 rounded-md bg-purple-500 hover:bg-purple-600 text-white transition duration-300"
+                    to={`/profile/${userId}`}
+                    className="block px-3 py-2 text-gray-300 hover:text-purple-400 transition duration-300"
                     onClick={toggleMenu}
                   >
-                    Upload Note
+                    {username}
                   </Link>
+                ) : (
+                  <div className="px-3 py-2 text-gray-300">{username}</div>
                 )}
-                <div className="px-3 py-2 text-gray-300">{username}</div>
                 <button
                   onClick={() => {
                     handleLogout();

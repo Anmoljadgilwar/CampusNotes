@@ -51,7 +51,7 @@ const uploadNote = async (req, res) => {
         size: file.size,
       },
       uploadedBy: req.user.id,
-      isGeneralNote: req.body.isGeneralNote === "true",
+      isGeneralNote: true, // All notes are now general category notes
     };
 
     // Handle thumbnail - store path to local file
@@ -63,11 +63,6 @@ const uploadNote = async (req, res) => {
       // Set default thumbnail if none provided
       noteData.thumbnail = "/uploads/thumbnails/CNotes-Logo.png";
       console.log("Using default thumbnail:", noteData.thumbnail);
-    }
-
-    if (req.body.isGeneralNote !== "true") {
-      if (req.body.course) noteData.course = req.body.course;
-      if (req.body.semester) noteData.semester = req.body.semester;
     }
 
     const note = await Note.create(noteData);
@@ -104,9 +99,39 @@ const downloadNote = async (req, res) => {
   }
 };
 
+// Delete note (admin only)
+const deleteNote = async (req, res) => {
+  try {
+    const note = await Note.findById(req.params.id);
+    if (!note) {
+      return res.status(404).json({ message: "Note not found" });
+    }
+
+    // Delete thumbnail file if it exists
+    if (
+      note.thumbnail &&
+      note.thumbnail !== "/uploads/thumbnails/CNotes-Logo.png"
+    ) {
+      const thumbnailPath = path.join(__dirname, "..", note.thumbnail);
+      if (fs.existsSync(thumbnailPath)) {
+        fs.unlinkSync(thumbnailPath);
+      }
+    }
+
+    await Note.findByIdAndDelete(req.params.id);
+    res.status(200).json({ message: "Note deleted successfully" });
+  } catch (error) {
+    console.error("Delete error:", error);
+    res
+      .status(500)
+      .json({ message: "Failed to delete note. Please try again." });
+  }
+};
+
 module.exports = {
   upload: handleUpload,
   getNotes,
   uploadNote,
   downloadNote,
+  deleteNote,
 };

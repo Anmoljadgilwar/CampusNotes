@@ -5,6 +5,7 @@ const {
   getNotes,
   uploadNote,
   downloadNote,
+  deleteNote,
 } = require("../controllers/noteController");
 const auth = require("../middleware/auth");
 const adminAuth = require("../middleware/adminAuth");
@@ -13,7 +14,10 @@ const adminAuth = require("../middleware/adminAuth");
 router.get("/", getNotes);
 router.get("/download/:id", auth, downloadNote);
 
+// Authenticated user routes (all users can upload)
+router.post("/upload", auth, upload, uploadNote);
+
 // Admin only routes
-router.post("/upload", auth, adminAuth, upload, uploadNote);
+router.delete("/:id", auth, adminAuth, deleteNote);
 
 module.exports = router;

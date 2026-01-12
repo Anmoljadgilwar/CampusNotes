@@ -1,11 +1,20 @@
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 const NoteCard = ({ note }) => {
   const [downloading, setDownloading] = useState(false);
   const [error, setError] = useState("");
   const [imageError, setImageError] = useState(false);
+  const navigate = useNavigate();
 
   const backendUrl = import.meta.env.VITE_BACKEND_URL;
+
+  const handleUserClick = (e) => {
+    e.stopPropagation();
+    if (note.uploadedBy?._id) {
+      navigate(`/profile/${note.uploadedBy._id}`);
+    }
+  };
 
   const handleDownload = async () => {
     try {
@@ -89,6 +98,18 @@ const NoteCard = ({ note }) => {
           {note.semester && (
             <p className="text-gray-600 dark:text-gray-400 text-sm">
               <span className="font-medium">Semester:</span> {note.semester}
+            </p>
+          )}
+
+          {note.uploadedBy && (
+            <p className="text-gray-600 dark:text-gray-400 text-sm">
+              <span className="font-medium">Uploaded by:</span>{" "}
+              <button
+                onClick={handleUserClick}
+                className="text-purple-500 hover:text-purple-600 dark:text-purple-400 dark:hover:text-purple-300 underline cursor-pointer"
+              >
+                {note.uploadedBy.username || "Unknown"}
+              </button>
             </p>
           )}
         </div>
