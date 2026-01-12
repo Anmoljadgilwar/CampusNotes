@@ -20,7 +20,7 @@ const Home = () => {
 
             {isAuthenticated ? (
               <Link
-                to="/university-notes"
+                to="/notes"
                 className="bg-purple-600 hover:bg-purple-500 text-white px-8 py-3 rounded-lg text-lg font-semibold transition duration-300"
               >
                 Browse Notes
@@ -90,45 +90,45 @@ const Home = () => {
         </div>
       </div>
 
-      {/* Popular Courses Section */}
+      {/* Popular Categories Section */}
       <div className="container mx-auto px-6 py-16">
         <h2 className="text-3xl font-bold text-gray-900 dark:text-white mb-8 text-center">
-          Popular Courses
+          Popular Categories
         </h2>
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
           <Link
-            to="/university-notes?course=BCA"
+            to="/notes"
             className="bg-white dark:bg-gray-800 p-6 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-700 transition duration-300 shadow-lg"
           >
             <h3 className="text-xl font-semibold text-gray-900 dark:text-white mb-2">
-              BCA
+              Programming
             </h3>
             <p className="text-gray-600 dark:text-gray-400">
-              Bachelor of Computer Applications
+              Notes for C, C++, Java, Python and more
             </p>
           </Link>
 
           <Link
-            to="/university-notes?course=MCA"
+            to="/notes"
             className="bg-white dark:bg-gray-800 p-6 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-700 transition duration-300 shadow-lg"
           >
             <h3 className="text-xl font-semibold text-gray-900 dark:text-white mb-2">
-              MCA
+              Web Development
             </h3>
             <p className="text-gray-600 dark:text-gray-400">
-              Master of Computer Applications
+              HTML, CSS, JavaScript, React JS notes
             </p>
           </Link>
 
           <Link
-            to="/university-notes?course=BTech"
+            to="/notes"
             className="bg-white dark:bg-gray-800 p-6 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-700 transition duration-300 shadow-lg"
           >
             <h3 className="text-xl font-semibold text-gray-900 dark:text-white mb-2">
-              BTech
+              Database
             </h3>
             <p className="text-gray-600 dark:text-gray-400">
-              Bachelor of Technology
+              SQL and database management notes
             </p>
           </Link>
         </div>

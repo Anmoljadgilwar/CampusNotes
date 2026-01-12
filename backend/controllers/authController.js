@@ -20,6 +20,7 @@ const register = async (req, res) => {
     const token = jwt.sign(
       {
         id: user._id,
+        username: user.username,
         isAdmin: user.isAdmin, // Include isAdmin in token
       },
       process.env.JWT_SECRET,
@@ -46,10 +47,11 @@ const login = async (req, res) => {
       return res.status(401).json({ message: "Invalid credentials" });
     }
 
-    // Include isAdmin in the token payload
+    // Include isAdmin and username in the token payload
     const token = jwt.sign(
       {
         id: user._id,
+        username: user.username,
         isAdmin: user.isAdmin, // Make sure this is included
       },
       process.env.JWT_SECRET,

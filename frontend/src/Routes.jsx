@@ -7,6 +7,7 @@ import Login from "./components/Auth/Login";
 import Signup from "./components/Auth/Signup";
 import About from "./components/About";
 import Contact from "./components/Contact";
+import UserProfile from "./components/Profile/UserProfile";
 import ProtectedRoute from "./components/ProtectedRoute";
 
 const AppRoutes = () => {
@@ -33,6 +34,7 @@ const AppRoutes = () => {
           </ProtectedRoute>
         }
       />
+      <Route path="/profile/:id" element={<UserProfile />} />
     </Routes>
   );
 };
