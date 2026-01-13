@@ -108,8 +108,9 @@ const Navbar = () => {
                 {userId && (
                   <Link
                     to={`/profile/${userId}`}
-                    className="text-gray-300 hover:text-purple-400 transition duration-300"
+                    className="dark:text-gray-300 text-black hover:text-purple-400 transition duration-300"
                   >
+                    {/* <span className="text-2xl">👨‍💻</span> */}
                     {username}
                   </Link>
                 )}
@@ -209,10 +210,10 @@ const Navbar = () => {
                 {userId ? (
                   <Link
                     to={`/profile/${userId}`}
-                    className="block px-3 py-2 text-gray-300 hover:text-purple-400 transition duration-300"
+                    className="block px-3 py-2 text-black dark:text-gray-300 hover:text-purple-400 transition duration-300"
                     onClick={toggleMenu}
                   >
-                    {username}
+                    <span className="text-2xl">👨‍💻</span> {username}
                   </Link>
                 ) : (
                   <div className="px-3 py-2 text-gray-300">{username}</div>

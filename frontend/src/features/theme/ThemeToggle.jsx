@@ -15,13 +15,13 @@ const ThemeToggle = () => {
 
   return (
     <button
-      className="bg-gray-200 dark:bg-gray-800 text-black dark:text-white px-3 py-1 rounded-full shadow-md transition-colors duration-200"
+      className="bg-gray-200 dark:bg-gray-800 text-black dark:text-white px-1 py-1 text-2xl rounded-full shadow-md transition-colors duration-200"
       onClick={handleToggle}
       type="button"
       aria-label="Toggle dark mode"
     >
       {/* Display icon based on current state */}
-      {isDark ? "🌙 Dark" : "☀️ Light"}
+      {isDark ? "🌙" : "☀️"}
     </button>
   );
 };
