@@ -31,6 +31,14 @@ const UserProfile = () => {
     try {
       setLoading(true);
       const response = await fetch(`${backendUrl}/api/users/${id}`);
+      const contentType = response.headers.get("content-type") || "";
+      const isJson = contentType.includes("application/json");
+
+      if (!isJson) {
+        setError("Failed to load user profile");
+        return;
+      }
+
       const data = await response.json();
 
       if (response.ok) {
