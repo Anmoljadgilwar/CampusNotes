@@ -101,7 +101,7 @@ const Navbar = () => {
               <div className="flex items-center space-x-4">
                 <Link
                   to="/upload"
-                  className="text-sm bg-purple-500 hover:bg-purple-600 px-4 py-2 rounded-lg transition duration-300"
+                  className="text-sm bg-purple-500 hover:bg-purple-600 px-4 py-2 rounded-lg transition duration-300 text-white"
                 >
                   Upload Note
                 </Link>
@@ -113,9 +113,7 @@ const Navbar = () => {
                     {username}
                   </Link>
                 )}
-                {!userId && (
-                  <span className="text-gray-300">{username}</span>
-                )}
+                {!userId && <span className="text-gray-300">{username}</span>}
                 <Button
                   className="text-gray-800 bg-gray-900  border-1 border-purple-800 hover:bg-red-600 transition duration-300"
                   onClick={handleLogout}
