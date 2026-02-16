@@ -7,7 +7,7 @@ import { toast } from "react-toastify";
 
 const Notes = () => {
   const backendUrl = import.meta.env.VITE_BACKEND_URL;
-const [searchQuery, setSearchQuery] = useState("");
+  const [searchQuery, setSearchQuery] = useState("");
 
   const [notes, setNotes] = useState([]);
   const [filteredNotes, setFilteredNotes] = useState([]);
@@ -28,9 +28,9 @@ const [searchQuery, setSearchQuery] = useState("");
   }, []);
 
   // Add effect to filter notes when category changes
-useEffect(() => {
-  applyFilters();
-}, [activeCategory, searchQuery, notes]);
+  useEffect(() => {
+    applyFilters();
+  }, [activeCategory, searchQuery, notes]);
 
   const fetchNotes = async () => {
     try {
@@ -45,30 +45,29 @@ useEffect(() => {
     }
   };
 
-  // Function to filter notes 
+  // Function to filter notes
   const applyFilters = () => {
-  const q = searchQuery.trim().toLowerCase();
+    const q = searchQuery.trim().toLowerCase();
 
-  const byCategory =
-    activeCategory === "All"
-      ? notes
-      : notes.filter((n) => n.category === activeCategory);
+    const byCategory =
+      activeCategory === "All"
+        ? notes
+        : notes.filter((n) => n.category === activeCategory);
 
-  const bySearch =
-    q.length === 0
-      ? byCategory
-      : byCategory.filter((n) => {
-          const title = (n.title || "").toLowerCase();
-          const category = (n.category || "").toLowerCase();
-          const uploader = (n.uploadedBy?.username || "").toLowerCase();
-          return (
-            title.includes(q) || category.includes(q) || uploader.includes(q)
-          );
-        });
+    const bySearch =
+      q.length === 0
+        ? byCategory
+        : byCategory.filter((n) => {
+            const title = (n.title || "").toLowerCase();
+            const category = (n.category || "").toLowerCase();
+            const uploader = (n.uploadedBy?.username || "").toLowerCase();
+            return (
+              title.includes(q) || category.includes(q) || uploader.includes(q)
+            );
+          });
 
-  setFilteredNotes(bySearch);
-};
-
+    setFilteredNotes(bySearch);
+  };
 
   // Handle category change
   const handleCategoryChange = (category) => {
@@ -121,25 +120,24 @@ useEffect(() => {
         onCategoryChange={handleCategoryChange}
       />
 
-      <div className="p-8">
+      <div className="p-4 text-lg ">
         <div className="flex justify-between items-center mb-7">
-          <h2 className="text-3xl font-bold text-gray-900 dark:text-purple-400">
+          <h2 className=" text-2xl sm:text-3xl font-bold text-gray-900 dark:text-purple-400">
             Notes
           </h2>
           <button
             onClick={() => navigate("/upload")}
-            className="bg-purple-500 hover:bg-purple-600 px-4 py-2 rounded text-white"
+            className=" px-2 py-1 bg-purple-500 hover:bg-purple-600 sm:px-4 sm:py-2 rounded text-white"
           >
-            Upload Note
+            Upload
           </button>
-         
+
           <input
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
             placeholder="Search by title, category, or uploader..."
-            className="w-full md:w-96 px-4 py-2 rounded-lg border border-gray-300 dark:border-gray-700 bg-white dark:bg-gray-800 text-gray-900 dark:text-white"
+            className="w-44 h-10 md:w-96 px-4 py-2 rounded-lg border border-gray-300 dark:border-gray-700 bg-white dark:bg-gray-800 text-gray-900 dark:text-white"
           />
-        
         </div>
 
         {filteredNotes.length > 0 ? (

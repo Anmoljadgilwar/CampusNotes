@@ -31,6 +31,9 @@ const Navbar = () => {
   }, [location]);
 
   const handleLogout = () => {
+    if (!window.confirm("Are you sure you want to delete this note?")) {
+      return;
+    }
     localStorage.removeItem("token");
     setIsAdmin(false);
     setUsername("");
@@ -53,11 +56,11 @@ const Navbar = () => {
           </Link>
 
           {/* Desktop Navigation */}
-          <div className="hidden md:flex items-center space-x-8 font-medium">
+          <div className="hidden md:flex items-center md:space-x-7 lg:space-x-8 font-medium">
             <Link
               to="/"
               className={`hover:text-purple-400 transition duration-300 ${isActive(
-                "/"
+                "/",
               )}`}
             >
               Home
@@ -68,7 +71,7 @@ const Navbar = () => {
               <Link
                 to="/notes"
                 className={`hover:text-purple-400 transition duration-300 ${isActive(
-                  "/notes"
+                  "/notes",
                 )}`}
               >
                 Notes
@@ -78,7 +81,7 @@ const Navbar = () => {
             <Link
               to="/about"
               className={`hover:text-purple-400 transition duration-300 ${isActive(
-                "/about"
+                "/about",
               )}`}
             >
               About
@@ -86,7 +89,7 @@ const Navbar = () => {
             <Link
               to="/contact"
               className={`hover:text-purple-400 transition duration-300 ${isActive(
-                "/contact"
+                "/contact",
               )}`}
             >
               Contact
@@ -103,7 +106,7 @@ const Navbar = () => {
                   to="/upload"
                   className="text-sm bg-purple-500 hover:bg-purple-600 px-4 py-2 rounded-lg transition duration-300 text-white"
                 >
-                  Upload Note
+                  Upload
                 </Link>
                 {userId && (
                   <Link
@@ -205,7 +208,7 @@ const Navbar = () => {
                   className="block px-3 py-2 rounded-md bg-purple-500 hover:bg-purple-600 text-white transition duration-300"
                   onClick={toggleMenu}
                 >
-                  Upload Note
+                  Upload Notes
                 </Link>
                 {userId ? (
                   <Link
