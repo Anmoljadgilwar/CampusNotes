@@ -31,7 +31,7 @@ const Navbar = () => {
   }, [location]);
 
   const handleLogout = () => {
-    if (!window.confirm("Are you sure you want to delete this note?")) {
+    if (!window.confirm("Are you sure you want to logout?")) {
       return;
     }
     localStorage.removeItem("token");
