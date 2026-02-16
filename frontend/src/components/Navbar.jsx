@@ -118,8 +118,9 @@ const Navbar = () => {
                   </Link>
                 )}
                 {!userId && <span className="text-gray-300">{username}</span>}
+
                 <Button
-                  className="text-gray-800 bg-gray-900  border-1 border-purple-800 hover:bg-red-600 transition duration-300"
+                  className="text-md !text-gray-800 bg-purple-200 dark:!text-white dark:bg-gray-900  dark:border-1 dark:border-purple-800 hover:bg-red-600 transition duration-300"
                   onClick={handleLogout}
                 >
                   Logout

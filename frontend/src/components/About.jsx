@@ -66,7 +66,8 @@ const About = () => {
           <h2 className="text-2xl font-bold text-purple-600 dark:text-purple-400 mb-6">
             Our Team
           </h2>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+          {/* <div className="grid grid-cols-1 md:grid-cols-2 gap-8"> */}
+          <div className="gap-8">
             <div className="text-center">
               <div className="w-32 h-32 rounded-full bg-gray-300 dark:bg-gray-700 mx-auto mb-4 flex items-center justify-center">
                 <span className="text-4xl">👨‍💻</span>
