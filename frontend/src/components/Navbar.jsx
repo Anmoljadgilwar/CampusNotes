@@ -49,14 +49,14 @@ const Navbar = () => {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 ">
         <div className="flex justify-between items-center h-16 ">
           {/* Logo */}
-          <Link to="/" className="flex items-center space-x-2">
-            <span className="text-2xl font-bold  dark:text-purple-500 hover:text-purple-600 transition duration-300">
+          <Link to="/" className="flex items-center space-x-2 ">
+            <span className="text-xl min-[840px]:text-2xl font-bold  dark:text-purple-500 hover:text-purple-600 transition duration-300">
               CampusNotes
             </span>
           </Link>
 
           {/* Desktop Navigation */}
-          <div className="hidden md:flex items-center md:space-x-7 lg:space-x-8 font-medium">
+          <div className="hidden md:flex items-center md:space-x-5  lg:space-x-8 font-medium">
             <Link
               to="/"
               className={`hover:text-purple-400 transition duration-300 ${isActive(
@@ -120,7 +120,7 @@ const Navbar = () => {
                 {!userId && <span className="text-gray-300">{username}</span>}
 
                 <Button
-                  className="text-md !text-gray-800 bg-purple-200 dark:!text-white dark:bg-gray-900  dark:border-1 dark:border-purple-800 hover:bg-red-600 transition duration-300"
+                  className="text-sm !text-gray-800 bg-purple-200 dark:!text-white dark:bg-gray-900  dark:border-1 dark:border-purple-800 hover:bg-red-600 transition duration-300 px-1 py-1"
                   onClick={handleLogout}
                 >
                   Logout
