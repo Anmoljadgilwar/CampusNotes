@@ -4,7 +4,7 @@ Handles listening to the port and any startup-level errors.
 
 //
 
-✅**_app.js_**
+✅***app.js***
 Responsible for setting up the Express app.
 Define routes, middleware, and other configurations here.
 Example structure:
@@ -17,7 +17,6 @@ Example structure:
 campusnotes/
 ├── backend/
 │   ├── uploads/
-│   │   ├── notes/        # PDF files stored here
 │   │   └── thumbnails/   # Thumbnail images stored here
 │   ├── models/
 │   │   ├── User.js       # User model
@@ -55,8 +54,8 @@ const login = async (req, res) => {
 
 // 2. Note Upload (noteController.js)
 const uploadNote = async (req, res) => {
-  // Save PDF to uploads/notes
-  // Save note info to MongoDB
+  // Upload new note
+  // Return note details
 };
 
 // 3. Note Display (Notes.jsx)
