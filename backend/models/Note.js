@@ -22,7 +22,7 @@ const noteSchema = new mongoose.Schema(
     },
     thumbnail: {
       type: String,
-      default: "/uploads/thumbnails/CNotes-Logo.png",
+      default: "/uploads/thumbnails/default.png",
     },
     uploadedBy: {
       type: mongoose.Schema.Types.ObjectId,
