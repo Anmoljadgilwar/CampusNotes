@@ -101,17 +101,17 @@ const Navbar = () => {
             <ThemeToggle />
 
             {localStorage.getItem("token") ? (
-              <div className="flex items-center space-x-4">
+              <div className="flex items-center space-x-4 max-[770px]:space-x-1.5 text-sm lg:text-base">
                 <Link
                   to="/upload"
-                  className="text-sm bg-purple-500 hover:bg-purple-600 px-4 py-2 rounded-lg transition duration-300 text-white"
+                  className=" bg-purple-500 hover:bg-purple-600 px-4 py-2 rounded-lg transition duration-300 text-gray-100"
                 >
                   Upload
                 </Link>
                 {userId && (
                   <Link
                     to={`/profile/${userId}`}
-                    className="dark:text-gray-300 text-black hover:text-purple-400 transition duration-300"
+                    className=" dark:text-gray-300 text-black hover:text-purple-400 transition duration-300"
                   >
                     {/* <span className="text-2xl">👨‍💻</span> */}
                     {username}
@@ -120,7 +120,7 @@ const Navbar = () => {
                 {!userId && <span className="text-gray-300">{username}</span>}
 
                 <Button
-                  className="text-sm !text-gray-800 bg-purple-200 dark:!text-white dark:bg-gray-900  dark:border-1 dark:border-purple-800 hover:bg-red-600 transition duration-300 px-1 py-1"
+                  className=" !text-gray-800 bg-purple-200 dark:!text-white dark:bg-gray-900  dark:border-1 dark:border-purple-800 hover:bg-red-600 transition duration-300 px-1 py-1"
                   onClick={handleLogout}
                 >
                   Logout

@@ -22,7 +22,7 @@ const noteSchema = new mongoose.Schema(
     },
     thumbnail: {
       type: String,
-      default: "/uploads/thumbnails/default.png",
+      default: "/uploads/thumbnails/CNotes-Logo.png",
     },
     uploadedBy: {
       type: mongoose.Schema.Types.ObjectId,
@@ -31,7 +31,7 @@ const noteSchema = new mongoose.Schema(
   },
   {
     timestamps: true,
-  }
+  },
 );
 const Note = mongoose.model("Note", noteSchema);
 

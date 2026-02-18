@@ -8,6 +8,7 @@ const NoteCard = ({ note }) => {
   const navigate = useNavigate();
 
   const backendUrl = import.meta.env.VITE_BACKEND_URL;
+  const fallbackThumbnail = `${backendUrl}/uploads/thumbnails/CNotes-Logo.png`;
 
   const handleUserClick = (e) => {
     e.stopPropagation();
@@ -28,7 +29,7 @@ const NoteCard = ({ note }) => {
           headers: {
             Authorization: `Bearer ${token}`,
           },
-        }
+        },
       );
 
       if (response.ok) {
@@ -68,9 +69,13 @@ const NoteCard = ({ note }) => {
     <div className="bg-white dark:bg-gray-800 rounded-lg shadow-lg overflow-hidden flex flex-col border border-gray-200 dark:border-gray-700">
       <div className="h-40 bg-gray-100 dark:bg-gray-700 relative">
         <img
-          src={`${backendUrl}${
-            note.thumbnail || "/uploads/thumbnails/CNotes-Logo.png"
-          }`}
+          src={
+            imageError
+              ? fallbackThumbnail
+              : `${backendUrl}${
+                  note.thumbnail || "/uploads/thumbnails/CNotes-Logo.png"
+                }`
+          }
           alt={note.title}
           className="w-full h-full object-contain"
           onError={() => setImageError(true)}

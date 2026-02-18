@@ -2,6 +2,16 @@ import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { jwtDecode } from "jwt-decode";
 
+const isTokenExpired = (token) => {
+  try {
+    const decoded = jwtDecode(token);
+    if (!decoded?.exp) return false;
+    return decoded.exp * 1000 <= Date.now();
+  } catch {
+    return true;
+  }
+};
+
 const UploadNote = () => {
   const [formData, setFormData] = useState({
     title: "",
@@ -16,7 +26,8 @@ const UploadNote = () => {
 
   useEffect(() => {
     const token = localStorage.getItem("token");
-    if (!token) {
+    if (!token || isTokenExpired(token)) {
+      localStorage.removeItem("token");
       navigate("/login");
     }
   }, [navigate]);
@@ -74,8 +85,9 @@ const UploadNote = () => {
 
     try {
       const token = localStorage.getItem("token");
-      if (!token) {
-        setError("Please login to upload files");
+      if (!token || isTokenExpired(token)) {
+        setError("Your session has expired. Please login again.");
+        localStorage.removeItem("token");
         navigate("/login");
         return;
       }

@@ -21,7 +21,14 @@ const getNotes = async (req, res) => {
     if (category && category !== "All") query.category = category;
 
     const notes = await Note.find(query).populate("uploadedBy", "username");
-    res.status(200).json(notes);
+    const normalizedNotes = notes.map((note) => {
+      const noteObj = note.toObject();
+      if (!noteObj.thumbnail || noteObj.thumbnail.endsWith("/default.png")) {
+        noteObj.thumbnail = "/uploads/thumbnails/default.png";
+      }
+      return noteObj;
+    });
+    res.status(200).json(normalizedNotes);
   } catch (error) {
     res.status(500).json({ message: error.message });
   }
@@ -87,7 +94,7 @@ const downloadNote = async (req, res) => {
     res.setHeader("Content-Type", note.file.contentType);
     res.setHeader(
       "Content-Disposition",
-      `attachment; filename="${note.file.originalName}"`
+      `attachment; filename="${note.file.originalName}"`,
     );
 
     res.send(note.file.data);
