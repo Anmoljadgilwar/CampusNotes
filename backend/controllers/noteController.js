@@ -20,11 +20,14 @@ const getNotes = async (req, res) => {
     let query = {};
     if (category && category !== "All") query.category = category;
 
-    const notes = await Note.find(query).populate("uploadedBy", "username");
-    const normalizedNotes = notes.map((note) => {
-      const noteObj = note.toObject();
+    const notes = await Note.find(query)
+      .select("-file")
+      .populate("uploadedBy", "username")
+      .lean();
+
+    const normalizedNotes = notes.map((noteObj) => {
       if (!noteObj.thumbnail || noteObj.thumbnail.endsWith("/default.png")) {
-        noteObj.thumbnail = "/uploads/thumbnails/default.png";
+        noteObj.thumbnail = "/uploads/thumbnails/CNotes-Logo.png";
       }
       return noteObj;
     });
