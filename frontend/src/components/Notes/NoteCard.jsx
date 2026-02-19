@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 
 const NoteCard = ({ note }) => {
   const [downloading, setDownloading] = useState(false);
+  const [previewing, setPreviewing] = useState(false);
   const [error, setError] = useState("");
   const [imageError, setImageError] = useState(false);
   const navigate = useNavigate();
@@ -65,6 +66,39 @@ const NoteCard = ({ note }) => {
     }
   };
 
+  const handlePreview = async () => {
+    try {
+      setPreviewing(true);
+      setError("");
+      const token = localStorage.getItem("token");
+
+      const response = await fetch(
+        `${backendUrl}/api/notes/download/${note._id}`,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        },
+      );
+
+      if (!response.ok) {
+        const data = await response.json();
+        setError(data.message || "Failed to preview note");
+        return;
+      }
+
+      const blob = await response.blob();
+      const previewUrl = window.URL.createObjectURL(blob);
+      window.open(previewUrl, "_blank", "noopener,noreferrer");
+      setTimeout(() => window.URL.revokeObjectURL(previewUrl), 60000);
+    } catch (err) {
+      console.error("Preview error:", err);
+      setError("Error previewing note");
+    } finally {
+      setPreviewing(false);
+    }
+  };
+
   return (
     <div className="bg-white dark:bg-gray-800 rounded-lg shadow-lg overflow-hidden flex flex-col border border-gray-200 dark:border-gray-700">
       <div className="h-40 bg-gray-100 dark:bg-gray-700 relative">
@@ -122,10 +156,17 @@ const NoteCard = ({ note }) => {
         {error && <p className="text-red-500 text-sm mb-2">{error}</p>}
       </div>
 
-      <div className="p-4 pt-0">
+      <div className="p-4 pt-0 grid grid-cols-2 gap-2">
+        <button
+          onClick={handlePreview}
+          disabled={previewing || downloading}
+          className="w-full bg-gray-600 text-white py-2 rounded hover:bg-gray-700 disabled:bg-gray-500 transition duration-200"
+        >
+          {previewing ? "Previewing..." : "Preview"}
+        </button>
         <button
           onClick={handleDownload}
-          disabled={downloading}
+          disabled={downloading || previewing}
           className="w-full bg-purple-500 text-white py-2 rounded hover:bg-purple-600 disabled:bg-gray-500 transition duration-200"
         >
           {downloading ? "Downloading..." : "Download"}
