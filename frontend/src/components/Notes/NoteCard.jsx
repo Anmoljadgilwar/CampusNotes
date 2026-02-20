@@ -9,7 +9,7 @@ const NoteCard = ({ note }) => {
   const navigate = useNavigate();
 
   const backendUrl = import.meta.env.VITE_BACKEND_URL;
-  const fallbackThumbnail = `${backendUrl}/uploads/thumbnails/CNotes-Logo.png`;
+  const fallbackThumbnail = "/CNotes-Logo.png";
 
   const handleUserClick = (e) => {
     e.stopPropagation();
@@ -73,7 +73,7 @@ const NoteCard = ({ note }) => {
       const token = localStorage.getItem("token");
 
       const response = await fetch(
-        `${backendUrl}/api/notes/download/${note._id}`,
+        `${backendUrl}/api/notes/preview/${note._id}`,
         {
           headers: {
             Authorization: `Bearer ${token}`,
@@ -87,9 +87,22 @@ const NoteCard = ({ note }) => {
         return;
       }
 
+      const contentType = response.headers.get("content-type") || "";
+      if (contentType.includes("wordprocessingml.document")) {
+        setError("DOCX preview is not supported in browser. Please use Download.");
+        return;
+      }
+
       const blob = await response.blob();
       const previewUrl = window.URL.createObjectURL(blob);
-      window.open(previewUrl, "_blank", "noopener,noreferrer");
+      const previewWindow = window.open(
+        previewUrl,
+        "_blank",
+        "noopener,noreferrer",
+      );
+      if (!previewWindow) {
+        setError("Popup blocked. Please allow popups for preview.");
+      }
       setTimeout(() => window.URL.revokeObjectURL(previewUrl), 60000);
     } catch (err) {
       console.error("Preview error:", err);
@@ -106,9 +119,9 @@ const NoteCard = ({ note }) => {
           src={
             imageError
               ? fallbackThumbnail
-              : `${backendUrl}${
-                  note.thumbnail || "/uploads/thumbnails/CNotes-Logo.png"
-                }`
+              : note.hasThumbnail
+                ? `${backendUrl}/api/notes/thumbnail/${note._id}`
+                : fallbackThumbnail
           }
           alt={note.title}
           className="w-full h-full object-contain"

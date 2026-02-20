@@ -1,26 +1,4 @@
 const multer = require("multer");
-const path = require("path");
-const fs = require("fs");
-
-// Local disk storage for thumbnails
-const thumbnailStorage = multer.diskStorage({
-  destination: (req, file, cb) => {
-    const dir = path.join(__dirname, "../uploads/thumbnails");
-    if (!fs.existsSync(dir)) {
-      fs.mkdirSync(dir, { recursive: true });
-    }
-    cb(null, dir);
-  },
-  filename: (req, file, cb) => {
-    // Generate unique filename with timestamp
-    const uniqueName =
-      Date.now() +
-      "-" +
-      Math.round(Math.random() * 1e9) +
-      path.extname(file.originalname);
-    cb(null, uniqueName);
-  },
-});
 
 // Memory storage for note files (to store in MongoDB)
 const memoryStorage = multer.memoryStorage();
@@ -68,30 +46,6 @@ const handleUpload = (req, res, next) => {
   upload(req, res, (err) => {
     if (err) {
       return res.status(400).json({ message: err.message });
-    }
-
-    // If there's a thumbnail file, save it to disk
-    if (req.files && req.files.thumbnail) {
-      const thumbnailFile = req.files.thumbnail[0];
-      const thumbnailDir = path.join(__dirname, "../uploads/thumbnails");
-
-      if (!fs.existsSync(thumbnailDir)) {
-        fs.mkdirSync(thumbnailDir, { recursive: true });
-      }
-
-      const uniqueName =
-        Date.now() +
-        "-" +
-        Math.round(Math.random() * 1e9) +
-        path.extname(thumbnailFile.originalname);
-      const thumbnailPath = path.join(thumbnailDir, uniqueName);
-
-      // Write the thumbnail buffer to disk
-      fs.writeFileSync(thumbnailPath, thumbnailFile.buffer);
-
-      // Update the file object with the disk path
-      thumbnailFile.filename = uniqueName;
-      thumbnailFile.path = thumbnailPath;
     }
 
     next();

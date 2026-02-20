@@ -43,8 +43,18 @@ const noteSchema = new mongoose.Schema(
       },
     },
     thumbnail: {
-      type: String,
-      default: "/uploads/thumbnails/CNotes-Logo.png",
+      data: {
+        type: Buffer,
+      },
+      contentType: {
+        type: String,
+      },
+      originalName: {
+        type: String,
+      },
+      size: {
+        type: Number,
+      },
     },
     uploadedBy: {
       type: mongoose.Schema.Types.ObjectId,
