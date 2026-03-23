@@ -34,6 +34,14 @@ const AppRoutes = () => {
           </ProtectedRoute>
         }
       />
+      <Route
+        path="/notes/:id/edit"
+        element={
+          <ProtectedRoute>
+            <UploadNote />
+          </ProtectedRoute>
+        }
+      />
       <Route path="/profile/:id" element={<UserProfile />} />
     </Routes>
   );

@@ -31,6 +31,7 @@ import React, { useLayoutEffect } from "react";
 import { BrowserRouter } from "react-router-dom";
 import AppRoutes from "./Routes";
 import Navbar from "./components/Navbar";
+import { ToastContainer } from "react-toastify";
 
 import { useSelector } from "react-redux";
 
@@ -54,6 +55,11 @@ const App = () => {
         <main>
           <AppRoutes />
         </main>
+        <ToastContainer
+          position="top-right"
+          autoClose={2500}
+          theme={theme === "dark" ? "dark" : "light"}
+        />
       </div>
     </BrowserRouter>
   );

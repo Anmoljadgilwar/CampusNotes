@@ -1,211 +1,181 @@
-# CampusNotes 📚
+# CampusNotes
 
-**Empowering Students with Free Notes**
+CampusNotes is a full-stack notes sharing platform for students. It lets users discover study material, upload their own notes, manage personal contributions, and keep important resources pinned in a cleaner workspace.
 
-CampusNotes is a community-driven platform designed to make education accessible by providing **notes for free**. Our mission is to help college students access quality academic resources effortlessly.
+- **Website**: [campusnotes-in.netlify.app](https://campusnotes-in.netlify.app/)
 
-## 🚀 Key Features
+## Highlights
 
-- 🌐 **Accessible for All**: No hidden costs or barriers—education should be free and open.
-- 🤝 **Community Contribution**: Upload and share your notes to help peers succeed.
-- 📚 **Browse & Download**: Search notes by category and download them instantly.
-- 👤 **User Profiles**: View profiles of note contributors and their uploaded materials.
-- 🎨 **Dark Mode Support**: Comfortable viewing experience with light and dark themes.
-- 📱 **Responsive Design**: Works seamlessly on desktop, tablet, and mobile devices.
-- 🔐 **Secure Authentication**: JWT-based authentication with encrypted passwords.
+- Create, edit, delete, and pin notes from a polished notes dashboard
+- Browse notes by category with search, filters, and pinned-first organization
+- Upload PDF or DOCX files with optional thumbnails
+- Preview supported documents in the browser and download notes on demand
+- View contributor profiles and note ownership
+- JWT-based authentication with admin-aware permissions
+- Responsive React UI with light and dark theme support
 
-## 💻 Tech Stack
+## Tech Stack
 
 ### Frontend
 
-- **React 18** - UI library
-- **React Router** - Client-side routing
-- **Redux Toolkit** - State management
-- **Tailwind CSS** - Styling
-- **Vite** - Build tool
-- **Axios** - HTTP client
+- React 18
+- React Router
+- Redux Toolkit
+- Tailwind CSS
+- Vite
+- React Toastify
+- React Icons
 
 ### Backend
 
-- **Node.js** - Runtime environment
-- **Express.js** - Web framework
-- **MongoDB** - NoSQL database
-- **Mongoose** - ODM for MongoDB
-- **JWT** - Authentication
-- **bcryptjs** - Password hashing
-- **Multer** - File upload handling
+- Node.js
+- Express.js
+- MongoDB
+- Mongoose
+- JWT
+- bcryptjs
+- Multer
+- CORS
 
-## 📁 Project Structure
+## Project Structure
 
-```
+```text
 CampusNotes2/
-├── frontend/                 # React application
-│   ├── src/
-│   │   ├── components/      # React components
-│   │   │   ├── Auth/        # Login & Signup
-│   │   │   ├── Notes/       # Notes display & upload
-│   │   │   ├── Profile/     # User profiles
-│   │   │   └── ...
-│   │   ├── features/        # Redux slices
-│   │   ├── app/             # Redux store
-│   │   └── App.jsx
-│   ├── package.json
-│   └── vite.config.js
-│
-└── backend/                  # Express API
-    ├── controllers/         # Route handlers
-    ├── models/              # MongoDB schemas
-    ├── routes/              # API routes
-    ├── middleware/          # Auth, admin checks
-    ├── config/              # Database config
-    ├── uploads/             # File storage
-    ├── package.json
-    └── server.js
+|- frontend/
+|  |- src/
+|  |  |- app/
+|  |  |- components/
+|  |  |  |- Auth/
+|  |  |  |- Notes/
+|  |  |  |- Profile/
+|  |  |- features/
+|  |  |- App.jsx
+|  |- package.json
+|- backend/
+|  |- config/
+|  |- controllers/
+|  |- middleware/
+|  |- models/
+|  |- routes/
+|  |- server.js
+|- README.md
 ```
 
-## 🛠️ Installation
+## Core Notes Experience
+
+The notes area now focuses on fast everyday use:
+
+- Notes metadata is fetched first for fast page load
+- Thumbnails load separately per card
+- Full document data is only requested on preview or download
+- Owners can edit, delete, and pin their own notes
+- Admins can manage all notes
+
+## Installation
 
 ### Prerequisites
 
-- Node.js (v16 or higher)
-- MongoDB
-- npm or yarn
+- Node.js 18 or newer recommended
+- MongoDB database
+- npm
 
-### Backend Setup
+### Backend
 
 ```bash
 cd backend
 npm install
 ```
 
-Create `.env` file in backend directory:
+Create `backend/.env`:
 
-```
+```env
 PORT=4000
-MONGODB_URI=mongodb+srv://username:password@cluster.mongodb.net/
-JWT_SECRET=your_secret_key_here
+MONGODB_URI=your_mongodb_connection_string
+JWT_SECRET=your_jwt_secret
 ```
 
-Start backend server:
+Run the backend:
 
 ```bash
 npm run dev
 ```
 
-### Frontend Setup
+### Frontend
 
 ```bash
 cd frontend
 npm install
 ```
 
-Create `.env` file in frontend directory:
+Create `frontend/.env`:
 
-```
+```env
 VITE_BACKEND_URL=http://localhost:4000
 ```
 
-Start frontend development server:
+Run the frontend:
 
 ```bash
 npm run dev
 ```
 
-Visit http://localhost:5173 in your browser.
+Open `http://localhost:5173`.
 
-## 📚 How It Works
+## API Overview
 
-1. **Sign Up**: Create an account with username, email, and password.
-2. **Browse Notes**: Explore available notes by category.
-3. **Upload Notes**: Share your PDF/DOCX notes with the community.
-4. **Download**: Download notes for offline study.
-5. **Manage Profile**: View your profile and uploaded materials.
+### Auth
 
-## 🔌 API Endpoints
-
-### Authentication
-
-- `POST /api/auth/register` - Register new user
-- `POST /api/auth/login` - Login user
+- `POST /api/auth/register`
+- `POST /api/auth/login`
 
 ### Notes
 
-- `GET /api/notes` - Get all notes (with optional category filter)
-- `POST /api/notes/upload` - Upload new note (authenticated)
-- `GET /api/notes/download/:id` - Download note (authenticated)
-- `DELETE /api/notes/:id` - Delete note (admin only)
+- `GET /api/notes`
+- `GET /api/notes/:id`
+- `POST /api/notes/upload`
+- `PUT /api/notes/:id`
+- `PATCH /api/notes/:id/pin`
+- `GET /api/notes/thumbnail/:id`
+- `GET /api/notes/preview/:id`
+- `GET /api/notes/download/:id`
+- `DELETE /api/notes/:id`
 
 ### Users
 
-- `GET /api/users/:id` - Get user profile and uploaded notes
+- `GET /api/users/:id`
 
 ### Contact
 
-- `POST /api/contact` - Submit contact form
+- `POST /api/contact`
 
-## 📝 Features in Detail
+## Current Note Fields
 
-### User Authentication
+- Title
+- Description
+- Category
+- Course
+- Semester
+- File
+- Thumbnail
+- Uploaded by
+- Pinned status
 
-- Secure JWT-based authentication
-- Password hashing with bcryptjs
-- Token expires in 24 hours
-- First user registration becomes admin
+## Deployment Notes
 
-### Note Upload
+- Frontend can be deployed on Netlify or Vercel
+- Backend can be deployed on Render
+- Set `VITE_BACKEND_URL` to your deployed backend URL
+- Make sure your deployed backend allows the frontend origin through CORS
 
-- Support for PDF and DOCX files
-- Automatic thumbnail generation
-- File size limit: 8MB
-- Metadata: title, category, subject
+## Verification
 
-### Categories
+Recent UI and notes-management changes were verified with:
 
-HTML, CSS, Javascript, C, C++, JAVA, PYTHON, SQL, REACT JS, Other
+- `npm run build` in `frontend`
+- `node --check controllers/noteController.js` in `backend`
+- `node --check routes/noteRoutes.js` in `backend`
 
-## 🚀 Deployment
+## Author
 
-### Backend (Render/Heroku)
-
-```bash
-git push origin main
-```
-
-### Frontend (Netlify)
-
-```bash
-npm run build
-# Deploy the dist/ folder
-```
-
-## 🤝 Contributing
-
-1. Fork the repository
-2. Create a feature branch (`git checkout -b feature/AmazingFeature`)
-3. Commit changes (`git commit -m 'Add some AmazingFeature'`)
-4. Push to branch (`git push origin feature/AmazingFeature`)
-5. Open a Pull Request
-
-## 📧 Contact
-
-For support and inquiries:
-
-- **Email**: developer.anmol108@gmail.com
-- **Location**: Yavatmal, India
-- **Website**: [campusnotes-in.netlify.app](https://campusnotes-in.netlify.app/)
-
-## 📄 License
-
-This project is open source and available under the MIT License.
-
-## 👨‍💻 Authors
-
-**Anmol Jadgilwar** - Founder & Full Stack Developer
-
----
-
-**Together, we can make learning accessible for everyone!** 🎓
-
-help peers succeed.
-
-- 📚 **Browse & Download**: Search notes by category and download them instantly.
+Anmol Jadgilwar  
+Founder and Full Stack Developer

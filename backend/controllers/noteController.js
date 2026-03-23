@@ -3,6 +3,11 @@ const Note = require("../models/Note");
 // Import the upload configuration that handles different storage for files and thumbnails
 const handleUpload = require("../config/uploadConfig");
 
+const canManageNote = (note, user) => {
+  if (!note || !user) return false;
+  return user.isAdmin || note.uploadedBy.toString() === user.id;
+};
+
 // Get all notes (optionally by category)
 const getNotes = async (req, res) => {
   try {
@@ -13,6 +18,7 @@ const getNotes = async (req, res) => {
     const notes = await Note.find(query)
       .select("-file -thumbnail.data")
       .populate("uploadedBy", "username")
+      .sort({ isPinned: -1, pinnedAt: -1, createdAt: -1 })
       .lean();
 
     const normalizedNotes = notes.map((noteObj) => {
@@ -37,8 +43,11 @@ const uploadNote = async (req, res) => {
 
     const noteData = {
       title: req.body.title,
+      description: req.body.description || "",
       category: req.body.category,
       subject: req.body.subject || req.body.category,
+      course: req.body.course || "",
+      semester: req.body.semester || "",
       file: {
         data: file.buffer,
         contentType: file.mimetype,
@@ -66,6 +75,25 @@ const uploadNote = async (req, res) => {
     res
       .status(500)
       .json({ message: "Failed to upload note. Please try again." });
+  }
+};
+
+const getNoteById = async (req, res) => {
+  try {
+    const note = await Note.findById(req.params.id)
+      .select("-file.data -thumbnail.data")
+      .populate("uploadedBy", "username")
+      .lean();
+
+    if (!note) {
+      return res.status(404).json({ message: "Note not found" });
+    }
+
+    note.hasThumbnail = Boolean(note.thumbnail?.contentType);
+    res.status(200).json(note);
+  } catch (error) {
+    console.error("Fetch note error:", error);
+    res.status(500).json({ message: "Failed to fetch note details." });
   }
 };
 
@@ -131,12 +159,106 @@ const previewNote = async (req, res) => {
   }
 };
 
-// Delete note (admin only)
+const updateNote = async (req, res) => {
+  try {
+    const note = await Note.findById(req.params.id);
+    if (!note) {
+      return res.status(404).json({ message: "Note not found" });
+    }
+
+    if (!canManageNote(note, req.user)) {
+      return res
+        .status(403)
+        .json({ message: "You do not have permission to edit this note" });
+    }
+
+    const { title, description, category, subject, course, semester } = req.body;
+
+    if (title !== undefined) note.title = title;
+    if (description !== undefined) note.description = description;
+    if (category !== undefined) note.category = category;
+    if (subject !== undefined) note.subject = subject || category || note.category;
+    if (course !== undefined) note.course = course;
+    if (semester !== undefined) note.semester = semester;
+
+    const file = req.files?.file?.[0];
+    if (file) {
+      note.file = {
+        data: file.buffer,
+        contentType: file.mimetype,
+        originalName: file.originalname,
+        size: file.size,
+      };
+    }
+
+    if (req.body.removeThumbnail === "true") {
+      note.thumbnail = undefined;
+    }
+
+    const thumbnailFile = req.files?.thumbnail?.[0];
+    if (thumbnailFile) {
+      note.thumbnail = {
+        data: thumbnailFile.buffer,
+        contentType: thumbnailFile.mimetype,
+        originalName: thumbnailFile.originalname,
+        size: thumbnailFile.size,
+      };
+    }
+
+    await note.save();
+
+    const updatedNote = await Note.findById(note._id)
+      .select("-file -thumbnail.data")
+      .populate("uploadedBy", "username")
+      .lean();
+
+    updatedNote.hasThumbnail = Boolean(updatedNote.thumbnail?.contentType);
+    res.status(200).json(updatedNote);
+  } catch (error) {
+    console.error("Update error:", error);
+    res.status(500).json({ message: "Failed to update note. Please try again." });
+  }
+};
+
+const togglePinNote = async (req, res) => {
+  try {
+    const note = await Note.findById(req.params.id);
+    if (!note) {
+      return res.status(404).json({ message: "Note not found" });
+    }
+
+    if (!canManageNote(note, req.user)) {
+      return res
+        .status(403)
+        .json({ message: "You do not have permission to pin this note" });
+    }
+
+    note.isPinned = !note.isPinned;
+    note.pinnedAt = note.isPinned ? new Date() : null;
+    await note.save();
+
+    res.status(200).json({
+      message: note.isPinned ? "Note pinned successfully" : "Note unpinned successfully",
+      isPinned: note.isPinned,
+    });
+  } catch (error) {
+    console.error("Pin toggle error:", error);
+    res.status(500).json({ message: "Failed to update note pin status." });
+  }
+};
+
+// Delete note (owner or admin)
 const deleteNote = async (req, res) => {
   try {
     const note = await Note.findById(req.params.id);
     if (!note) {
       return res.status(404).json({ message: "Note not found" });
+    }
+
+    if (!canManageNote(note, req.user)) {
+      return res
+        .status(403)
+        .json({ message: "You do not have permission to delete this note" });
     }
 
     await Note.findByIdAndDelete(req.params.id);
@@ -153,8 +275,11 @@ module.exports = {
   upload: handleUpload,
   getNotes,
   uploadNote,
+  getNoteById,
   getNoteThumbnail,
   downloadNote,
   previewNote,
+  updateNote,
+  togglePinNote,
   deleteNote,
 };

@@ -1,6 +1,20 @@
 @import "tailwindcss";
 @custom-variant dark (&:where(.dark, .dark *));
 
+:root {
+  color: #0f172a;
+  background:
+    radial-gradient(circle at top, rgba(245, 158, 11, 0.16), transparent 30%),
+    linear-gradient(180deg, #fffdf7 0%, #f8fafc 45%, #eef2ff 100%);
+}
+
+body {
+  min-width: 320px;
+  min-height: 100vh;
+  margin: 0;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+}
+
 .scrollbar-hide::-webkit-scrollbar {
   display: none;
 }

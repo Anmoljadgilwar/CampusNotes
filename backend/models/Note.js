@@ -7,6 +7,11 @@ const noteSchema = new mongoose.Schema(
       required: true,
       trim: true,
     },
+    description: {
+      type: String,
+      trim: true,
+      default: "",
+    },
     category: {
       type: String,
       required: true,
@@ -64,6 +69,14 @@ const noteSchema = new mongoose.Schema(
     isGeneralNote: {
       type: Boolean,
       default: true,
+    },
+    isPinned: {
+      type: Boolean,
+      default: false,
+    },
+    pinnedAt: {
+      type: Date,
+      default: null,
     },
   },
   { timestamps: true },

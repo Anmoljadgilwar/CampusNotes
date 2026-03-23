@@ -1,7 +1,23 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import {
+  FiBookmark,
+  FiDownload,
+  FiEdit3,
+  FiEye,
+  FiTrash2,
+  FiUser,
+} from "react-icons/fi";
 
-const NoteCard = ({ note }) => {
+const NoteCard = ({
+  note,
+  canManage,
+  onDelete,
+  onEdit,
+  onTogglePin,
+  deleting,
+  pinning,
+}) => {
   const [downloading, setDownloading] = useState(false);
   const [previewing, setPreviewing] = useState(false);
   const [error, setError] = useState("");
@@ -9,7 +25,7 @@ const NoteCard = ({ note }) => {
   const navigate = useNavigate();
 
   const backendUrl = import.meta.env.VITE_BACKEND_URL;
-  const fallbackThumbnail = "/CNotes-Logo.png";
+  const fallbackThumbnail = "/default.png";
 
   const handleUserClick = (e) => {
     e.stopPropagation();
@@ -24,14 +40,11 @@ const NoteCard = ({ note }) => {
       setError("");
       const token = localStorage.getItem("token");
 
-      const response = await fetch(
-        `${backendUrl}/api/notes/download/${note._id}`,
-        {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
+      const response = await fetch(`${backendUrl}/api/notes/download/${note._id}`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
         },
-      );
+      });
 
       if (response.ok) {
         const blob = await response.blob();
@@ -39,9 +52,8 @@ const NoteCard = ({ note }) => {
         const link = document.createElement("a");
         link.href = url;
 
-        // Get the file extension from the content type
         const contentType = response.headers.get("content-type");
-        let fileExt = ".pdf"; // default to pdf
+        let fileExt = ".pdf";
         if (
           contentType ===
           "application/vnd.openxmlformats-officedocument.wordprocessingml.document"
@@ -53,7 +65,7 @@ const NoteCard = ({ note }) => {
         document.body.appendChild(link);
         link.click();
         document.body.removeChild(link);
-        window.URL.revokeObjectURL(url); // Clean up the URL object
+        window.URL.revokeObjectURL(url);
       } else {
         const data = await response.json();
         setError(data.message || "Failed to download note");
@@ -72,14 +84,11 @@ const NoteCard = ({ note }) => {
       setError("");
       const token = localStorage.getItem("token");
 
-      const response = await fetch(
-        `${backendUrl}/api/notes/preview/${note._id}`,
-        {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
+      const response = await fetch(`${backendUrl}/api/notes/preview/${note._id}`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
         },
-      );
+      });
 
       if (!response.ok) {
         const data = await response.json();
@@ -89,17 +98,13 @@ const NoteCard = ({ note }) => {
 
       const contentType = response.headers.get("content-type") || "";
       if (contentType.includes("wordprocessingml.document")) {
-        setError("DOCX preview is not supported in browser. Please use Download.");
+        setError("DOCX preview is not supported in browser. Please download it instead.");
         return;
       }
 
       const blob = await response.blob();
       const previewUrl = window.URL.createObjectURL(blob);
-      const previewWindow = window.open(
-        previewUrl,
-        "_blank",
-        "noopener,noreferrer",
-      );
+      const previewWindow = window.open(previewUrl, "_blank", "noopener,noreferrer");
       if (!previewWindow) {
         setError("Popup blocked. Please allow popups for preview.");
       }
@@ -113,8 +118,8 @@ const NoteCard = ({ note }) => {
   };
 
   return (
-    <div className="bg-white dark:bg-gray-800 rounded-lg shadow-lg overflow-hidden flex flex-col border border-gray-200 dark:border-gray-700">
-      <div className="h-40 bg-gray-100 dark:bg-gray-700 relative">
+    <article className="overflow-hidden rounded-[28px] border border-slate-200/80 bg-white shadow-[0_18px_60px_-30px_rgba(15,23,42,0.35)] transition hover:-translate-y-1 hover:shadow-[0_25px_70px_-30px_rgba(15,23,42,0.45)] dark:border-slate-700 dark:bg-slate-900">
+      <div className="relative h-48 overflow-hidden bg-slate-100 dark:bg-slate-800">
         <img
           src={
             imageError
@@ -124,68 +129,107 @@ const NoteCard = ({ note }) => {
                 : fallbackThumbnail
           }
           alt={note.title}
-          className="w-full h-full object-contain"
+          className="h-full w-full object-cover"
           onError={() => setImageError(true)}
         />
 
-        <div className="absolute top-2 right-2">
-          <span className="text-xs bg-purple-500 text-white px-2 py-1 rounded-md">
+        <div className="absolute inset-x-0 top-0 flex items-start justify-between p-4">
+          <span className="rounded-full bg-white/90 px-3 py-1 text-xs font-semibold uppercase tracking-[0.2em] text-slate-700 backdrop-blur dark:bg-slate-900/80 dark:text-slate-200">
             {note.category}
           </span>
+          {note.isPinned && (
+            <span className="rounded-full bg-amber-300 px-3 py-1 text-xs font-semibold text-slate-900">
+              Pinned
+            </span>
+          )}
         </div>
       </div>
 
-      <div className="p-4 flex-grow">
-        <h3 className="text-lg font-bold text-gray-900 dark:text-white mb-3">
-          {note.title}
-        </h3>
+      <div className="space-y-4 p-5">
+        <div>
+          <h3 className="text-xl font-semibold text-slate-900 dark:text-white">
+            {note.title}
+          </h3>
+          {note.description && (
+            <p className="mt-2 line-clamp-3 text-sm leading-6 text-slate-600 dark:text-slate-300">
+              {note.description}
+            </p>
+          )}
+        </div>
 
-        <div className="space-y-1 mb-3">
+        <div className="flex flex-wrap gap-2 text-xs font-medium text-slate-500 dark:text-slate-300">
           {note.course && (
-            <p className="text-gray-600 dark:text-gray-400 text-sm">
-              <span className="font-medium">Course:</span> {note.course}
-            </p>
+            <span className="rounded-full bg-slate-100 px-3 py-1 dark:bg-slate-800">
+              {note.course}
+            </span>
           )}
-
           {note.semester && (
-            <p className="text-gray-600 dark:text-gray-400 text-sm">
-              <span className="font-medium">Semester:</span> {note.semester}
-            </p>
-          )}
-
-          {note.uploadedBy && (
-            <p className="text-gray-600 dark:text-gray-400 text-sm">
-              <span className="font-medium">Uploaded by:</span>{" "}
-              <button
-                onClick={handleUserClick}
-                className="text-purple-500 hover:text-purple-600 dark:text-purple-400 dark:hover:text-purple-300 underline cursor-pointer"
-              >
-                {note.uploadedBy.username || "Unknown"}
-              </button>
-            </p>
+            <span className="rounded-full bg-slate-100 px-3 py-1 dark:bg-slate-800">
+              Semester {note.semester}
+            </span>
           )}
         </div>
 
-        {error && <p className="text-red-500 text-sm mb-2">{error}</p>}
-      </div>
+        {note.uploadedBy && (
+          <button
+            onClick={handleUserClick}
+            className="flex items-center gap-2 text-sm text-amber-700 transition hover:text-amber-800 dark:text-amber-300 dark:hover:text-amber-200"
+          >
+            <FiUser />
+            {note.uploadedBy.username || "Unknown"}
+          </button>
+        )}
 
-      <div className="p-4 pt-0 grid grid-cols-2 gap-2">
-        <button
-          onClick={handlePreview}
-          disabled={previewing || downloading}
-          className="w-full bg-gray-600 text-white py-2 rounded hover:bg-gray-700 disabled:bg-gray-500 transition duration-200"
-        >
-          {previewing ? "Previewing..." : "Preview"}
-        </button>
-        <button
-          onClick={handleDownload}
-          disabled={downloading || previewing}
-          className="w-full bg-purple-500 text-white py-2 rounded hover:bg-purple-600 disabled:bg-gray-500 transition duration-200"
-        >
-          {downloading ? "Downloading..." : "Download"}
-        </button>
+        {error && <p className="text-sm text-rose-500">{error}</p>}
+
+        <div className="grid grid-cols-2 gap-3">
+          <button
+            onClick={handlePreview}
+            disabled={previewing || downloading}
+            className="inline-flex items-center justify-center gap-2 rounded-2xl bg-slate-100 px-4 py-3 text-sm font-medium text-slate-700 transition hover:bg-slate-200 disabled:cursor-not-allowed disabled:opacity-60 dark:bg-slate-800 dark:text-slate-100 dark:hover:bg-slate-700"
+          >
+            <FiEye />
+            {previewing ? "Opening..." : "Preview"}
+          </button>
+          <button
+            onClick={handleDownload}
+            disabled={downloading || previewing}
+            className="inline-flex items-center justify-center gap-2 rounded-2xl bg-amber-400 px-4 py-3 text-sm font-medium text-slate-900 transition hover:bg-amber-300 disabled:cursor-not-allowed disabled:opacity-60"
+          >
+            <FiDownload />
+            {downloading ? "Saving..." : "Download"}
+          </button>
+        </div>
+
+        {canManage && (
+          <div className="grid grid-cols-3 gap-2 border-t border-slate-200 pt-4 dark:border-slate-700">
+            <button
+              onClick={() => onTogglePin(note._id)}
+              disabled={pinning}
+              className="inline-flex items-center justify-center gap-2 rounded-2xl border border-slate-200 px-3 py-2 text-sm text-slate-600 transition hover:border-amber-300 hover:text-amber-700 disabled:cursor-not-allowed disabled:opacity-60 dark:border-slate-700 dark:text-slate-200"
+            >
+              <FiBookmark />
+              {pinning ? "..." : note.isPinned ? "Unpin" : "Pin"}
+            </button>
+            <button
+              onClick={() => onEdit(note._id)}
+              className="inline-flex items-center justify-center gap-2 rounded-2xl border border-slate-200 px-3 py-2 text-sm text-slate-600 transition hover:border-sky-300 hover:text-sky-700 dark:border-slate-700 dark:text-slate-200"
+            >
+              <FiEdit3 />
+              Edit
+            </button>
+            <button
+              onClick={() => onDelete(note._id)}
+              disabled={deleting}
+              className="inline-flex items-center justify-center gap-2 rounded-2xl border border-rose-200 px-3 py-2 text-sm text-rose-600 transition hover:bg-rose-50 disabled:cursor-not-allowed disabled:opacity-60 dark:border-rose-400/30 dark:text-rose-300 dark:hover:bg-rose-950/40"
+            >
+              <FiTrash2 />
+              {deleting ? "..." : "Delete"}
+            </button>
+          </div>
+        )}
       </div>
-    </div>
+    </article>
   );
 };
 
