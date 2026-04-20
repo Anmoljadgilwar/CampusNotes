@@ -8,7 +8,7 @@ CampusNotes is a full-stack notes sharing platform for students. It lets users d
 
 - Create, edit, delete, and pin notes from a polished notes dashboard
 - Browse notes by category with search, filters, and pinned-first organization
-- Upload PDF or DOCX files with optional thumbnails
+- Upload PDF or DOCX files with thumbnails
 - Preview supported documents in the browser and download notes on demand
 - View contributor profiles and note ownership
 - JWT-based authentication with admin-aware permissions
