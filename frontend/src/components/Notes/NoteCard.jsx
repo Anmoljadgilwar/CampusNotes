@@ -5,6 +5,7 @@ import {
   FiDownload,
   FiEdit3,
   FiEye,
+  FiImage,
   FiTrash2,
   FiUser,
 } from "react-icons/fi";
@@ -26,6 +27,10 @@ const NoteCard = ({
 
   const backendUrl = import.meta.env.VITE_BACKEND_URL;
   const fallbackThumbnail = "/default.png";
+  const hasCustomThumbnail = note.hasThumbnail && !imageError;
+  const thumbnailSrc = hasCustomThumbnail
+    ? `${backendUrl}/api/notes/thumbnail/${note._id}`
+    : fallbackThumbnail;
 
   const handleUserClick = (e) => {
     e.stopPropagation();
@@ -40,11 +45,14 @@ const NoteCard = ({
       setError("");
       const token = localStorage.getItem("token");
 
-      const response = await fetch(`${backendUrl}/api/notes/download/${note._id}`, {
-        headers: {
-          Authorization: `Bearer ${token}`,
+      const response = await fetch(
+        `${backendUrl}/api/notes/download/${note._id}`,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
         },
-      });
+      );
 
       if (response.ok) {
         const blob = await response.blob();
@@ -84,11 +92,14 @@ const NoteCard = ({
       setError("");
       const token = localStorage.getItem("token");
 
-      const response = await fetch(`${backendUrl}/api/notes/preview/${note._id}`, {
-        headers: {
-          Authorization: `Bearer ${token}`,
+      const response = await fetch(
+        `${backendUrl}/api/notes/preview/${note._id}`,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
         },
-      });
+      );
 
       if (!response.ok) {
         const data = await response.json();
@@ -98,13 +109,19 @@ const NoteCard = ({
 
       const contentType = response.headers.get("content-type") || "";
       if (contentType.includes("wordprocessingml.document")) {
-        setError("DOCX preview is not supported in browser. Please download it instead.");
+        setError(
+          "DOCX preview is not supported in browser. Please download it instead.",
+        );
         return;
       }
 
       const blob = await response.blob();
       const previewUrl = window.URL.createObjectURL(blob);
-      const previewWindow = window.open(previewUrl, "_blank", "noopener,noreferrer");
+      const previewWindow = window.open(
+        previewUrl,
+        "_blank",
+        "noopener,noreferrer",
+      );
       if (!previewWindow) {
         setError("Popup blocked. Please allow popups for preview.");
       }
@@ -118,20 +135,26 @@ const NoteCard = ({
   };
 
   return (
-    <article className="overflow-hidden rounded-[28px] border border-slate-200/80 bg-white shadow-[0_18px_60px_-30px_rgba(15,23,42,0.35)] transition hover:-translate-y-1 hover:shadow-[0_25px_70px_-30px_rgba(15,23,42,0.45)] dark:border-slate-700 dark:bg-slate-900">
-      <div className="relative h-48 overflow-hidden bg-slate-100 dark:bg-slate-800">
+    <article className="flex h-full flex-col overflow-hidden rounded-[28px] border border-slate-200/80 bg-white shadow-[0_18px_60px_-30px_rgba(15,23,42,0.35)] transition hover:-translate-y-1 hover:shadow-[0_25px_70px_-30px_rgba(15,23,42,0.45)] dark:border-slate-700 dark:bg-slate-900">
+      <div className="relative aspect-[4/3] overflow-hidden bg-[radial-gradient(circle_at_top,#fef3c7_0%,#f8fafc_45%,#e2e8f0_100%)] dark:bg-[radial-gradient(circle_at_top,#1e293b_0%,#0f172a_55%,#020617_100%)]">
         <img
-          src={
-            imageError
-              ? fallbackThumbnail
-              : note.hasThumbnail
-                ? `${backendUrl}/api/notes/thumbnail/${note._id}`
-                : fallbackThumbnail
-          }
+          src={thumbnailSrc}
           alt={note.title}
-          className="h-full w-full object-cover"
+          className={`h-full w-full transition duration-300 ${
+            hasCustomThumbnail
+              ? "object-contain p-4 sm:p-5"
+              : "object-contain p-10 opacity-90"
+          }`}
           onError={() => setImageError(true)}
         />
+
+        {!hasCustomThumbnail && (
+          <div className="pointer-events-none absolute inset-0 flex items-center justify-center">
+            <div className="flex h-14 w-14 items-center justify-center rounded-2xl border border-white/70 bg-white/65 text-slate-500 shadow-sm backdrop-blur dark:border-slate-700/80 dark:bg-slate-900/50 dark:text-slate-300">
+              <FiImage className="text-xl" />
+            </div>
+          </div>
+        )}
 
         <div className="absolute inset-x-0 top-0 flex items-start justify-between p-4">
           <span className="rounded-full bg-white/90 px-3 py-1 text-xs font-semibold uppercase tracking-[0.2em] text-slate-700 backdrop-blur dark:bg-slate-900/80 dark:text-slate-200">
@@ -145,7 +168,7 @@ const NoteCard = ({
         </div>
       </div>
 
-      <div className="space-y-4 p-5">
+      <div className="flex flex-1 flex-col space-y-4 p-5">
         <div>
           <h3 className="text-xl font-semibold text-slate-900 dark:text-white">
             {note.title}
@@ -182,7 +205,7 @@ const NoteCard = ({
 
         {error && <p className="text-sm text-rose-500">{error}</p>}
 
-        <div className="grid grid-cols-2 gap-3">
+        <div className="mt-auto grid grid-cols-2 gap-3">
           <button
             onClick={handlePreview}
             disabled={previewing || downloading}
